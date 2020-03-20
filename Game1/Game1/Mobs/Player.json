@@ -1,0 +1,7 @@
+{
+  "hitRadius": 15,
+  "moveSpeed": 90,
+  "mobType": "Player",
+  "hp": 1,
+  "damage": 0
+}

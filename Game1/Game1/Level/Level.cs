@@ -7,21 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1
+namespace Game1.Level
 {
     class Level
     {
-        List<Phase> phases = new List<Phase>();
+        List<Phase> Phases;
         public List<MobileEntity> playerBullets { get; internal set; }
         public int FrameCount { get; internal set; }
-        public Level(MobMaker mobMaker)
+        public Level(string level)
         {
-            phases.Add(new Phase("Grunts1",0, mobMaker));
-            phases.Add(new Phase("MidBoss", 37, mobMaker));
-            phases.Add(new Phase("Grunts2", 58, mobMaker));
-            phases.Add(new Phase("Boss", 74, mobMaker));
             FrameCount = 0;
             playerBullets = new List<MobileEntity>();
+            Phases = Builder.GetPhases(level);
         }
         
         /// <summary>
@@ -39,7 +36,7 @@ namespace Game1
         List<MobileEntity> GetPhaseMobs()
         {
             List<MobileEntity> mobs = new List<MobileEntity>();
-            foreach (Phase phase in phases)
+            foreach (Phase phase in Phases)
             {
                 if (phase.Active == true)
                 {
@@ -62,7 +59,7 @@ namespace Game1
         public void Update(PlayerCharacter player, KeyboardState kstate)
         {
             FrameCount++;
-            foreach(Phase phase in phases)
+            foreach(Phase phase in Phases)
             {
                 if (phase.StartTime <= FrameCount)
                 {

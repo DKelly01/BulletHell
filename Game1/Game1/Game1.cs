@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Game1.Level;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -29,7 +30,7 @@ namespace Game1
 
         SpriteFont gameFont;
         PlayerCharacter player;
-        Level level;
+        Level.Level level;
         KeyBinds keyBinds = new KeyBinds();
 
         public Game1()
@@ -50,10 +51,9 @@ namespace Game1
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             MobMaker mobMaker = new MobMaker(keyBinds);
             player = mobMaker.Player;
-            level = new Level(mobMaker);
+            level = Builder.CreateLevel("Level1");
             base.Initialize();
         }
 

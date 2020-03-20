@@ -9,7 +9,6 @@ namespace Game1
 {
     class BulletFormation
     {
-        BulletMaker bulletMaker = new BulletMaker();
         List<MobileEntity> bullets;
         string pattern;
         string trajectory;

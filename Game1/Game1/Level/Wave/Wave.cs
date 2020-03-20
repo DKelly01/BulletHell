@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1
+namespace Game1.Level.Wave
 {
     class Wave
     {
@@ -18,7 +18,7 @@ namespace Game1
         {
             this.mobs = mobs;
             script = new MoveScript(moveType, mobs, willFire);
-            this.StartTime = startTime;
+            StartTime = startTime;
         }
 
         public int StartTime { get => startTime; set => startTime = value; }
@@ -27,12 +27,12 @@ namespace Game1
 
         public List<MobileEntity> Bullets()
         {
-            List<BulletFormation> formations =script.Bullets;
+            List<BulletFormation> formations = script.Bullets;
             List<MobileEntity> bullets = new List<MobileEntity>();
-            foreach(BulletFormation formation in formations)
+            foreach (BulletFormation formation in formations)
             {
                 List<MobileEntity> bulletSet = formation.Bullets;
-                foreach(MobileEntity bullet in bulletSet)
+                foreach (MobileEntity bullet in bulletSet)
                 {
                     bullets.Add(bullet);
                 }
@@ -46,7 +46,7 @@ namespace Game1
             script.update();
             if (!script.Active)
             {
-                this.active = false;
+                active = false;
             }
         }
     }

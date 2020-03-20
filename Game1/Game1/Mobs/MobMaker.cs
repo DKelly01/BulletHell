@@ -13,10 +13,10 @@ namespace Game1
 {
     class MobMaker
     {
-        public PlayerCharacter Player { get; }
-        public MobMaker(KeyBinds keyBinds)
+        
+        public static Level.PlayerCharacter CreatePlayer(KeyBinds keyBinds)
         {
-            Player = new PlayerCharacter(mobFromFile("Player"), new Vector2(Constants.WIDTH / 2, (Constants.HEIGHT - 10) - Constants.PLAYER_RADIUS),keyBinds);
+            return new Level.PlayerCharacter(MobFromFile("Player"), new Vector2(Constants.WIDTH / 2, (Constants.HEIGHT - 10) - Constants.PLAYER_RADIUS), keyBinds);
         }
 
         public List<MobileEntity> CreateMobList(List<string> mobTypes)
@@ -31,15 +31,15 @@ namespace Game1
 
         public static MobileEntity CreateMob(string mobType, Vector2 startingPosition)
         {
-            return new MobileEntity(mobFromFile(mobType), startingPosition);
+            return new MobileEntity(MobFromFile(mobType), startingPosition);
         }
 
         public static Bullet CreateBullet(string bulletType, Vector2 startingPosition)
         {
-            return new Bullet(mobFromFile(bulletType), startingPosition);
+            return new Bullet(MobFromFile(bulletType), startingPosition);
         }
 
-        static MobBase mobFromFile(string mobType)
+        static MobBase MobFromFile(string mobType)
         {
             return JsonConvert.DeserializeObject<MobBase>(FileReader.GetDataFromFile(mobType));
         }

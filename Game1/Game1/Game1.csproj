@@ -44,24 +44,28 @@
     <Compile Include="CollisionManager\CollisionDetector.cs" />
     <Compile Include="CollisionManager\CollisionInvoker.cs" />
     <Compile Include="KeyBinds.cs" />
+    <Compile Include="Level\Builder.cs" />
+    <Compile Include="Level\LevelMaker.cs" />
+    <Compile Include="Level\PhaseBase.cs" />
+    <Compile Include="Level\Wave\WaveBase.cs" />
+    <Compile Include="Level\Wave\WaveMaker.cs" />
     <Compile Include="Mobs\Bullet.cs" />
     <Compile Include="MoveScripts\BulletFormation.cs" />
-    <Compile Include="BulletMaker.cs" />
     <Compile Include="CollisionManager\DetectCollision.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Level.cs" />
+    <Compile Include="Level\Level.cs" />
     <Compile Include="CollisionManager\ICollision.cs" />
     <Compile Include="Mobs\MobBase.cs" />
     <Compile Include="Mobs\MobileEntity.cs" />
     <Compile Include="Mobs\MobMaker.cs" />
     <Compile Include="MoveScripts\MoveScript.cs" />
-    <Compile Include="Phase.cs" />
-    <Compile Include="Mobs\PlayerCharacter.cs" />
+    <Compile Include="Level\Phase.cs" />
+    <Compile Include="Level\PlayerCharacter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\FileReader.cs" />
-    <Compile Include="Wave.cs" />
+    <Compile Include="Level\Wave\Wave.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

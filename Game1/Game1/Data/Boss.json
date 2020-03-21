@@ -1,0 +1,7 @@
+{
+  "hitRadius": 15,
+  "moveSpeed": 1,
+  "mobType": "Boss",
+  "hp": 10,
+  "damage": 1
+}

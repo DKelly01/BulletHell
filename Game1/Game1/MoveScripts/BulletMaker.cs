@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1
+namespace Game1.MoveScripts
 {
     class BulletMaker
     {
-        int spacing = Constants.BULLET_SPACING;
+        static int spacing = Constants.BULLET_SPACING;
 
-        public List<MobileEntity> CreateBulletFormation(int numBullets, string bulletType, Vector2 startingPosition, string formationType, Color color)
+        public static List<MobileEntity> CreateBulletFormation(int numBullets, string bulletType, Vector2 startingPosition, string formationType, Color color)
         {
-            
+
             if (formationType == "Arc")
             {
                 return Arc(startingPosition, bulletType, color, numBullets);
@@ -35,13 +35,11 @@ namespace Game1
             else return new List<MobileEntity>();
         }
 
-     
-
-        List<MobileEntity> Arc(Vector2 startingPosition, string bulletType, Color color, int numBullets)
+        static List<MobileEntity> Arc(Vector2 startingPosition, string bulletType, Color color, int numBullets)
         {
             Vector2 shift = new Vector2(0, 0);
             List<MobileEntity> arc = new List<MobileEntity>();
-            while (numBullets%2==1 || numBullets<4)
+            while (numBullets % 2 == 1 || numBullets < 4)
             {
                 numBullets++;
             }
@@ -51,18 +49,18 @@ namespace Game1
                 arc[i].Active = true;
                 if (i < (numBullets / 2) - 1)
                 {
-                    shift += new Vector2(this.spacing*2, this.spacing*2);
+                    shift += new Vector2(spacing * 2, spacing * 2);
                 }
                 else if (i == (numBullets / 2) - 1)
                 {
-                    shift += new Vector2(this.spacing*2, 0);
+                    shift += new Vector2(spacing * 2, 0);
                 }
-                else shift += new Vector2(this.spacing*2, -this.spacing*2);
+                else shift += new Vector2(spacing * 2, -spacing * 2);
             }
             return arc;
         }
 
-        List<MobileEntity>Single(Vector2 startingPosition, string bulletType, Color color, int numBullets)
+        static List<MobileEntity> Single(Vector2 startingPosition, string bulletType, Color color, int numBullets)
         {
 
             List<MobileEntity> single = new List<MobileEntity>();
@@ -70,12 +68,12 @@ namespace Game1
             return single;
         }
 
-        List<MobileEntity> Arrowhead(Vector2 startingPosition, string bulletType, Color color)
+        static List<MobileEntity> Arrowhead(Vector2 startingPosition, string bulletType, Color color)
         {
             List<MobileEntity> arrowhead = new List<MobileEntity>();
             Vector2 shift = new Vector2(-Constants.BULLET_SPACING * 2, 0);
             arrowhead.Add(MobMaker.CreateBullet(bulletType, startingPosition));
-            arrowhead.Add(MobMaker.CreateBullet(bulletType, startingPosition+shift));
+            arrowhead.Add(MobMaker.CreateBullet(bulletType, startingPosition + shift));
             shift = new Vector2(Constants.BULLET_SPACING * 2, 0);
             arrowhead.Add(MobMaker.CreateBullet(bulletType, startingPosition + shift));
             shift = new Vector2(Constants.BULLET_SPACING, Constants.BULLET_SPACING);
@@ -93,7 +91,7 @@ namespace Game1
             return arrowhead;
         }
 
-        List<MobileEntity> ZigZag(Vector2 startingPosition, string bulletType, Color color)
+        static List<MobileEntity> ZigZag(Vector2 startingPosition, string bulletType, Color color)
         {
             List<MobileEntity> Zig = new List<MobileEntity>();
 

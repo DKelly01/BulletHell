@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1
+namespace Game1.MoveScripts
 {
     class BulletFormation
     {
-        BulletMaker bulletMaker = new BulletMaker();
         List<MobileEntity> bullets;
         string pattern;
         string trajectory;
@@ -24,15 +23,15 @@ namespace Game1
             //this.bulletType = bulletType;
             if (pattern == "Arrowhead")
             {
-                Bullets = bulletMaker.CreateBulletFormation(numBullets, bulletType, startingPosition, "Arrowhead", color);
+                Bullets = BulletMaker.CreateBulletFormation(numBullets, bulletType, startingPosition, "Arrowhead", color);
             }
             if (pattern == "Arc")
             {
-                Bullets = bulletMaker.CreateBulletFormation(numBullets, bulletType, startingPosition, "Arc", color);
+                Bullets = BulletMaker.CreateBulletFormation(numBullets, bulletType, startingPosition, "Arc", color);
             }
             if (pattern == "ZigZag")
             {
-                Bullets = bulletMaker.CreateBulletFormation(3, bulletType, startingPosition, "ZigZag", color);
+                Bullets = BulletMaker.CreateBulletFormation(3, bulletType, startingPosition, "ZigZag", color);
             }
         }
 

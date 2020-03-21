@@ -45,7 +45,7 @@
     <Compile Include="CollisionManager\CollisionInvoker.cs" />
     <Compile Include="KeyBinds.cs" />
     <Compile Include="Level\Builder.cs" />
-    <Compile Include="Level\PhaseBase.cs" />
+    <Compile Include="Level\Bases.cs" />
     <Compile Include="Level\WaveBase.cs" />
     <Compile Include="Mobs\Bullet.cs" />
     <Compile Include="MoveScripts\BulletFormation.cs" />

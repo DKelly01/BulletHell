@@ -35,8 +35,6 @@ namespace Game1.MoveScripts
             else return new List<MobileEntity>();
         }
 
-
-
         static List<MobileEntity> Arc(Vector2 startingPosition, string bulletType, Color color, int numBullets)
         {
             Vector2 shift = new Vector2(0, 0);

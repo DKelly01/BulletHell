@@ -9,19 +9,30 @@ using Game1.Level;
 
 namespace Game1.Level
 {
-    class Builder
+    partial class Builder
     {
+
         public static Level CreateLevel(string level)
         {
             return new Level(level);
         }
         static List<PhaseBase> PhasesFromFile(string level)
         {
-            return JsonConvert.DeserializeObject<List<PhaseBase>>(FileReader.GetDataFromFile(level));
+            LevelBase levelBase = JsonConvert.DeserializeObject<LevelBase>(FileReader.GetDataFromFile(level));
+
+            return levelBase.Phases;
         }
         internal static List<Wave> GetWaves(PhaseBase phaseBase)
         {
-            List<WaveBase> waveBases = JsonConvert.DeserializeObject<List<WaveBase>>(FileReader.GetDataFromFile(phaseBase.name));
+            WaveList waveList = JsonConvert.DeserializeObject<WaveList>(FileReader.GetDataFromFile(phaseBase.Name));
+            List<Wave> waves = new List<Wave>();
+            foreach(WaveInfo waveInfo in waveList.Waves)
+            {
+                WaveDetails waveDetails = JsonConvert.DeserializeObject<WaveDetails>(FileReader.GetDataFromFile(waveInfo.Name));
+                WaveBase waveBase = new WaveBase(waveDetails,waveInfo.StartTime+phaseBase.StartTime);
+                waves.Add(CreateWave(waveBase));
+            }
+            return waves;
         }
         public static List<Phase> GetPhases(string level)
         {
@@ -35,6 +46,11 @@ namespace Game1.Level
         static Phase CreatePhase(PhaseBase phaseBase)
         {
             return new Phase(phaseBase);
+        }
+
+        internal static Wave CreateWave(WaveBase waveBase)
+        {
+            return new Wave(waveBase);
         }
     }
 }

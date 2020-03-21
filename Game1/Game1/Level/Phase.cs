@@ -14,19 +14,9 @@ namespace Game1.Level
 
         public Phase(PhaseBase phaseBase)
         {
-            StartTime = phaseBase.startTime;
+            StartTime = phaseBase.StartTime;
             waves = Builder.GetWaves(phaseBase);
         }
-
-        //void Grunts2()
-        //{
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(10, "TypeA")), "DiagonalRight", (1 + startTime) * Constants.FPS, true));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(10, "TypeA")), "DiagonalLeft", (3 + startTime) * Constants.FPS, true));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(10, "TypeA")), "SinRight", (6 + startTime) * Constants.FPS, true));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(10, "TypeA")), "SinLeft", (8 + startTime) * Constants.FPS, false));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(8, "TypeA")), "ZigRight", (10 + startTime) * Constants.FPS, true));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(8, "TypeA")), "ZagLeft", (11 + startTime) * Constants.FPS, false));
-        //}
         
         //void MidBoss()
         //{

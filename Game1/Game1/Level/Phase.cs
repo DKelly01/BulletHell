@@ -3,43 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Game1.Level.Wave;
 
 namespace Game1.Level
 {
     class Phase
     {
-        List<Wave.Wave> waves = new List<Wave.Wave>();
+        List<Wave> waves = new List<Wave>();
         public bool Active { get; set; }
         public int StartTime { get; }
 
         public Phase(PhaseBase phaseBase)
         {
             StartTime = phaseBase.startTime;
-            waves = Builder.GetWaves();
+            waves = Builder.GetWaves(phaseBase.name);
         }
-
-        //public Phase(string phaseType, int startTime)
-        //{
-        //    this.mobMaker = mobMaker;
-        //    this.StartTime = startTime;
-        //    if (phaseType == "Grunts1")
-        //    {
-        //        Grunts1();
-        //    }
-        //    else if (phaseType == "Grunts2")
-        //    {
-        //        Grunts2();
-        //    }
-        //    else if (phaseType == "MidBoss")
-        //    {
-        //        MidBoss();
-        //    }
-        //    else if (phaseType == "Boss")
-        //    {
-        //        Boss();
-        //    }
-        //}
+      
 
         //void Grunts1()
         //{
@@ -78,6 +56,10 @@ namespace Game1.Level
         //    waves.Add(new Wave(boss, "Boss2", (startTime +45) * Constants.FPS, true));
         //}
 
+            /// <summary>
+            /// Phase update function
+            /// </summary>
+            /// <param name="frameCount"></param>
         public void Update(int frameCount)
         {
             
@@ -90,6 +72,7 @@ namespace Game1.Level
             }
         }
 
+        //returns all active mobs and bullets in the phase
         public List<MobileEntity> GetMobs()
         {
             List<MobileEntity> mobs = new List<MobileEntity>();
@@ -114,15 +97,5 @@ namespace Game1.Level
             }
             return mobs;
         }
-
-        //List<string> populateMobList(int num, string mobType)
-        //{
-        //    List<string> mobList = new List<string>();
-        //    for(int i =0;i<num; i++)
-        //    {
-        //        mobList.Add(mobType);
-        //    }
-        //    return mobList;
-        //}
     }
 }

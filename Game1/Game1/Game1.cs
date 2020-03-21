@@ -51,8 +51,7 @@ namespace Game1
         /// </summary>
         protected override void Initialize()
         {
-            MobMaker mobMaker = new MobMaker(keyBinds);
-            player = mobMaker.Player;
+            player = MobMaker.CreatePlayer(keyBinds);
             level = Builder.CreateLevel("Level1");
             base.Initialize();
         }

@@ -1,29 +1,27 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Game1.MoveScripts;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.Level.Wave
+namespace Game1.Level
 {
     class Wave
     {
-        List<MobileEntity> mobs = new List<MobileEntity>();
+        public List<MobileEntity> Mobs { get; set; }
         MoveScript script;
-        int startTime;
-        bool active = true;
+        public int StartTime { get; set; }
+        public bool Active { get; set; }
 
-        public Wave(List<MobileEntity> mobs, string moveType, int startTime, bool willFire)
+        public Wave(WaveBase waveBase)
         {
-            this.mobs = mobs;
-            script = new MoveScript(moveType, mobs, willFire);
-            StartTime = startTime;
+            mobs = MobMaker.GetMobs(waveBase.Mobs);
+            script = new MoveScript(waveBase.Movescript, mobs, waveBase.WillFire);
+            StartTime = waveBase.StartTime;
+            Active = true;
         }
-
-        public int StartTime { get => startTime; set => startTime = value; }
-        public bool Active { get => active; set => active = value; }
-        internal List<MobileEntity> Mobs { get => mobs; set => mobs = value; }
 
         public List<MobileEntity> Bullets()
         {
@@ -46,7 +44,7 @@ namespace Game1.Level.Wave
             script.update();
             if (!script.Active)
             {
-                active = false;
+                Active = false;
             }
         }
     }

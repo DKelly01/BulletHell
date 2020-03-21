@@ -19,12 +19,12 @@ namespace Game1
             return new Level.PlayerCharacter(MobFromFile("Player"), new Vector2(Constants.WIDTH / 2, (Constants.HEIGHT - 10) - Constants.PLAYER_RADIUS), keyBinds);
         }
 
-        public List<MobileEntity> CreateMobList(List<string> mobTypes)
+        internal static List<MobileEntity> GetMobs(List<string> mobTypes)
         {
             List<MobileEntity> mobs = new List<MobileEntity>();
-            foreach(string mob in mobTypes)
+            foreach (string mob in mobTypes)
             {
-                mobs.Add(CreateMob(mob,new Vector2(-100, 100)));
+                mobs.Add(CreateMob(mob, new Vector2(-100, 100)));
             }
             return mobs;
         }

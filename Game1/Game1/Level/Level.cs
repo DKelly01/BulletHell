@@ -56,6 +56,11 @@ namespace Game1.Level
             
         }
 
+        /// <summary>
+        /// The level update function
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="kstate"></param>
         public void Update(PlayerCharacter player, KeyboardState kstate)
         {
             FrameCount++;

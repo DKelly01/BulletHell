@@ -19,6 +19,10 @@ namespace Game1.Level
         {
             return JsonConvert.DeserializeObject<List<PhaseBase>>(FileReader.GetDataFromFile(level));
         }
+        internal static List<Wave> GetWaves(string name)
+        {
+            throw new NotImplementedException();
+        }
         public static List<Phase> GetPhases(string level)
         {
             List<Phase> phases = new List<Phase>();

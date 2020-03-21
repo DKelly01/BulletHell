@@ -19,7 +19,7 @@ namespace Game1.Level
         {
             Mobs = MobMaker.GetMobs(waveBase.Mobs);
             script = new MoveScript(waveBase.Movescript, Mobs, waveBase.WillFire);
-            StartTime = waveBase.StartTime;
+            StartTime = waveBase.StartTime * Constants.FPS;
             Active = true;
         }
 

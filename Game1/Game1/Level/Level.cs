@@ -66,7 +66,7 @@ namespace Game1.Level
             FrameCount++;
             foreach(Phase phase in Phases)
             {
-                if (phase.StartTime <= FrameCount)
+                if (phase.StartTime*Constants.FPS <= FrameCount)
                 {
                     phase.Active = true;
                 }

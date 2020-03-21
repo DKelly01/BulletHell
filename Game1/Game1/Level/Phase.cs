@@ -16,20 +16,8 @@ namespace Game1.Level
         {
             StartTime = phaseBase.StartTime;
             waves = Builder.GetWaves(phaseBase);
+            Active = false;
         }
-        
-        //void MidBoss()
-        //{
-        //    List<MobileEntity> midBoss = mobMaker.CreateMobList(populateMobList(1, "MidBoss"));
-        //    waves.Add(new Wave(midBoss, "MidBoss", startTime * Constants.FPS, true));
-        //}
-
-        //void Boss()
-        //{
-        //    List<MobileEntity> boss = mobMaker.CreateMobList(populateMobList(1, "Boss"));
-        //    waves.Add(new Wave(boss, "Boss1", startTime * Constants.FPS, true));
-        //    waves.Add(new Wave(boss, "Boss2", (startTime +45) * Constants.FPS, true));
-        //}
 
         /// <summary>
             /// Phase update function

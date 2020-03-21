@@ -1,0 +1,13 @@
+{
+	"waves":[{"name":"10ADiagonalRight","startTime":1},
+	{"name":"10ADiagonalLeft","startTime":3},
+	{"name":"10SinRight","startTime":6},
+	{"name":"10ASinLeft","startTime":8},
+	{"name":"8AZigRight","startTime":10},
+	{"name":"8AZagLeft","startTime":11}
+	{"name":"8ACancan","startTime":20},
+	{"name":"6AEllLeft","startTime":24},
+	{"name":"6AEllRight","startTime":28},
+	{"name":"SoloBRight","startTime":30},
+	{"name":"10ASinLeft","startTime":33}]
+}

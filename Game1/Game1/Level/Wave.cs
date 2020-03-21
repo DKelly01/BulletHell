@@ -17,8 +17,8 @@ namespace Game1.Level
 
         public Wave(WaveBase waveBase)
         {
-            mobs = MobMaker.GetMobs(waveBase.Mobs);
-            script = new MoveScript(waveBase.Movescript, mobs, waveBase.WillFire);
+            Mobs = MobMaker.GetMobs(waveBase.Mobs);
+            script = new MoveScript(waveBase.Movescript, Mobs, waveBase.WillFire);
             StartTime = waveBase.StartTime;
             Active = true;
         }

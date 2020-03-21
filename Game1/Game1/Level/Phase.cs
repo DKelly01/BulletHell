@@ -15,23 +15,8 @@ namespace Game1.Level
         public Phase(PhaseBase phaseBase)
         {
             StartTime = phaseBase.startTime;
-            waves = Builder.GetWaves(phaseBase.name);
+            waves = Builder.GetWaves(phaseBase);
         }
-      
-
-        //void Grunts1()
-        //{
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(8,"TypeA")), "CanCan", (2 + startTime) * Constants.FPS, false));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(6, "TypeA")), "EllRight", (11 + startTime) * Constants.FPS, false));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(1, "TypeB")), "Solo_B_Right",(13 + startTime) * Constants.FPS, true));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(6, "TypeA")), "EllLeft",(14 + startTime) * Constants.FPS, false));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(1, "TypeB")), "Solo_B_Right", (17 + startTime) * Constants.FPS, true));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(8, "TypeA")), "CanCan", (20 + startTime) * Constants.FPS, true));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(6, "TypeA")), "EllLeft", (24 + startTime) * Constants.FPS, false));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(6, "TypeA")), "EllRight", (28 + startTime) * Constants.FPS, false));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(1, "TypeB")), "Solo_B_Right", (30 + startTime) * Constants.FPS, true));
-        //    waves.Add(new Wave(mobMaker.CreateMobList(populateMobList(10, "TypeA")), "SinLeft", (33 + startTime) * Constants.FPS, false));
-        //}
 
         //void Grunts2()
         //{
@@ -56,7 +41,7 @@ namespace Game1.Level
         //    waves.Add(new Wave(boss, "Boss2", (startTime +45) * Constants.FPS, true));
         //}
 
-            /// <summary>
+        /// <summary>
             /// Phase update function
             /// </summary>
             /// <param name="frameCount"></param>

@@ -1,0 +1,7 @@
+{
+  "hitRadius": 15,
+  "moveSpeed": 1,
+  "mobType": "TypeB",
+  "hp": 1,
+  "damage": 1
+}

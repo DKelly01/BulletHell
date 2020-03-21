@@ -1,0 +1,12 @@
+{
+  "waves": [
+    {
+      "name": "Boss1",
+      "startTime": 2
+    },
+    {
+      "name": "Boss2",
+      "startTime": 45
+    }
+  ]
+}

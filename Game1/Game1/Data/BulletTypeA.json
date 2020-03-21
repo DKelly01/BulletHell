@@ -1,0 +1,7 @@
+{
+  "hitRadius": 9,
+  "moveSpeed": 2,
+  "mobType": "BulletTypeA",
+  "hp": 1,
+  "damage": 1
+}

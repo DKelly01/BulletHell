@@ -3,5 +3,6 @@
   "moveSpeed": 2,
   "mobType": "BulletTypeB",
   "hp": 1,
-  "damage": 1
+  "damage": 1,
+  "pointValue": 0
 }

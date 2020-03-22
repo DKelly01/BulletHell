@@ -3,5 +3,6 @@
   "moveSpeed": 2,
   "mobType": "MidBoss",
   "hp": 5,
-  "damage": 1
+  "damage": 1,
+  "pointValue": 250
 }

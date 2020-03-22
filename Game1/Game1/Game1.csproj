@@ -48,6 +48,9 @@
     <Compile Include="Level\Bases.cs" />
     <Compile Include="Level\WaveBase.cs" />
     <Compile Include="Mobs\Bullet.cs" />
+    <Compile Include="Mobs\BulletMaker.cs" />
+    <Compile Include="Mobs\PlayerMaker.cs" />
+    <Compile Include="MoveScripts\Arrowhead.cs" />
     <Compile Include="MoveScripts\BulletFormation.cs" />
     <Compile Include="CollisionManager\DetectCollision.cs" />
     <Compile Include="Constants\Constants.cs" />
@@ -57,7 +60,9 @@
     <Compile Include="Mobs\MobBase.cs" />
     <Compile Include="Mobs\MobileEntity.cs" />
     <Compile Include="Mobs\MobMaker.cs" />
-    <Compile Include="MoveScripts\BulletMaker.cs" />
+    <Compile Include="MoveScripts\BulletMakerOLD.cs" />
+    <Compile Include="MoveScripts\CanCan.cs" />
+    <Compile Include="MoveScripts\Formation.cs" />
     <Compile Include="MoveScripts\MoveScript.cs" />
     <Compile Include="Level\Phase.cs" />
     <Compile Include="Level\PlayerCharacter.cs" />

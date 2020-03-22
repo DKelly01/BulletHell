@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game1.Mobs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,21 @@ namespace Game1.MoveScripts
     {
         public static MoveScript CreateMoveScript(string scriptName, List<MobileEntity>mobs, bool willFire)
         {
-            return new MoveScript(scriptName, mobs, willFire);
+            MobMaker bulletMaker = new BulletMaker();
+            //return new MoveScript(scriptName, mobs, willFire);
+            switch (scriptName)
+            {
+                case "CanCan":
+                    return new CanCan(mobs, willFire,bulletMaker);
+                    break;
+                case "Arc":
+                    return new Arc(mobs, false, bullet);
+                default:
+                    return new CanCan(mobs, willFire, mobMaker);
+
+
+            }
+
         }
     }
 }

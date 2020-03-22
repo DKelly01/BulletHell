@@ -9,29 +9,26 @@ namespace Game1.MoveScripts
 {
     class BulletFormation
     {
-        List<MobileEntity> bullets;
+        
         string pattern;
         string trajectory;
-        //string bulletType;
-
-        internal List<MobileEntity> Bullets { get => bullets; set => bullets = value; }
+        internal List<MobileEntity> Bullets { get; set; }
 
         public BulletFormation(string pattern, Vector2 startingPosition, string bulletType, Color color, int numBullets, string trajectory)
         {
             this.pattern = pattern;
             this.trajectory = trajectory;
-            //this.bulletType = bulletType;
             if (pattern == "Arrowhead")
             {
-                Bullets = BulletMaker.CreateBulletFormation(numBullets, bulletType, startingPosition, "Arrowhead", color);
+                Bullets = BulletMakerOLD.CreateBulletFormation(numBullets, bulletType, startingPosition, "Arrowhead", color);
             }
             if (pattern == "Arc")
             {
-                Bullets = BulletMaker.CreateBulletFormation(numBullets, bulletType, startingPosition, "Arc", color);
+                Bullets = BulletMakerOLD.CreateBulletFormation(numBullets, bulletType, startingPosition, "Arc", color);
             }
             if (pattern == "ZigZag")
             {
-                Bullets = BulletMaker.CreateBulletFormation(3, bulletType, startingPosition, "ZigZag", color);
+                Bullets = BulletMakerOLD.CreateBulletFormation(3, bulletType, startingPosition, "ZigZag", color);
             }
         }
 

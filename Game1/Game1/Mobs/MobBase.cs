@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game1.Mobs
 {
-    class MobBase
+    public class MobBase
     {
         public int HitRadius { get; set; }
         public float MoveSpeed { get; set; }

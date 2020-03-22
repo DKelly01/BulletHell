@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Game1.MoveScripts
 {
-    class BulletMaker
+    class BulletMakerOLD
     {
         static int spacing = Constants.BULLET_SPACING;
 

@@ -9,15 +9,15 @@ namespace Game1.MoveScripts
 {
     class MoveScript
     {
-        int frameCount = 0;
-        string moveType;
-        List<MobileEntity> mobs;
-        List<BulletFormation> bullets;
-        bool willFire = false;
-        bool active = true;
+        internal int FrameCount { get; set; }
+        internal List<MobileEntity> Mobs { get; set; }
+        //List<BulletFormation> bullets;
+        internal List<MoveScript> Bullets;
+        internal bool willFire;
+        internal MobMaker MobMaker;
+        public bool Active { get; set; }
 
-        internal List<BulletFormation> Bullets { get => bullets; set => bullets = value; }
-        public bool Active { get => active; set => active = value; }
+        //internal List<BulletFormation> Bullets { get; set; }
 
         /// <summary>
         /// Available movement types: CanCan, EllLeft, EllRight
@@ -26,73 +26,75 @@ namespace Game1.MoveScripts
         /// </summary>
         /// <param name="type"></param>
         /// <param name="mobs"></param>
-        public MoveScript(string type, List<MobileEntity> mobs, bool willFire)
+        public MoveScript(List<MobileEntity> mobs, bool willFire)
         {
-            this.moveType = type ?? throw new ArgumentNullException(nameof(type));
-            this.mobs = mobs ?? throw new ArgumentNullException(nameof(mobs));
-            this.Bullets = new List<BulletFormation>();
+            this.Name = name ?? throw new ArgumentNullException(nameof(name));
+            this.Mobs = mobs ?? throw new ArgumentNullException(nameof(mobs));
+            this.Bullets = new List<MoveScript>();
             this.willFire = willFire;
+            this.FrameCount = 0;
+            this.MobMaker = mobMaker;
         }
 
-        public void update()
+        public virtual void Update()
         {
-            if (this.moveType == "CanCan")
-            {
-                CanCan();
-            }
-            else if (this.moveType == "EllRight")
-            {
-                EllRight();
-            }
-            else if (this.moveType == "EllLeft")
-            {
-                EllLeft();
-            }
-            else if (this.moveType == "Solo_B_Right")
-            {
-                Solo_B_Right();
-            }
-            else if (this.moveType == "MidBoss")
-            {
-                MidBoss();
-            }
-            else if (this.moveType == "ZigRight")
-            {
-                ZigRight();
-            }
-            else if (this.moveType == "ZagLeft")
-            {
-                ZagLeft();
-            }
-            else if (this.moveType == "SinRight")
-            {
-                SinRight();
-            }
-            else if (this.moveType == "SinLeft")
-            {
-                SinLeft();
-            }
-            else if (this.moveType == "DiagonalRight")
-            {
-                DiagonalRight();
-            }
-            else if (this.moveType == "DiagonalLeft")
-            {
-                DiagonalLeft();
-            }
-            else if (this.moveType == "Boss1")
-            {
-                Boss1();
-            }
-            else if (this.moveType == "Boss2")
-            {
-                Boss2();
-            }
-            foreach (BulletFormation formation in Bullets)
+            //if (this.moveType == "CanCan")
+            //{
+            //    CanCan();
+            //}
+            //else if (this.moveType == "EllRight")
+            //{
+            //    EllRight();
+            //}
+            //else if (this.moveType == "EllLeft")
+            //{
+            //    EllLeft();
+            //}
+            //else if (this.moveType == "Solo_B_Right")
+            //{
+            //    Solo_B_Right();
+            //}
+            //else if (this.moveType == "MidBoss")
+            //{
+            //    MidBoss();
+            //}
+            //else if (this.moveType == "ZigRight")
+            //{
+            //    ZigRight();
+            //}
+            //else if (this.moveType == "ZagLeft")
+            //{
+            //    ZagLeft();
+            //}
+            //else if (this.moveType == "SinRight")
+            //{
+            //    SinRight();
+            //}
+            //else if (this.moveType == "SinLeft")
+            //{
+            //    SinLeft();
+            //}
+            //else if (this.moveType == "DiagonalRight")
+            //{
+            //    DiagonalRight();
+            //}
+            //else if (this.moveType == "DiagonalLeft")
+            //{
+            //    DiagonalLeft();
+            //}
+            //else if (this.moveType == "Boss1")
+            //{
+            //    Boss1();
+            //}
+            //else if (this.moveType == "Boss2")
+            //{
+            //    Boss2();
+            //}
+            foreach (MoveScript formation in Bullets)
             {
                 formation.Update();
             }
-            frameCount++;
+            FrameCount++;
         }
 
         /// <summary>
@@ -183,51 +185,14 @@ namespace Game1.MoveScripts
         /// </summary>
         private void CanCan()
         {
-            string pattern = "Arrowhead";
-            string trajectory = "Arc";
-            int numBullets = 10;
-            string bulletType = "BulletTypeA";
-            int initialXPosition = Constants.K - (30 * ((mobs.Count / 2) - 1));
-            if (frameCount == 0)
-            {
-                foreach (MobileEntity mob in mobs)
-                {
-                    mob.Position = new Vector2((initialXPosition + 30 * mobs.IndexOf(mob)), -30 * (mobs.IndexOf(mob) + 1));
-                    mob.Active = true;
-                }
-            }
-            foreach (MobileEntity mob in mobs)
-            {
-                //mobs enter from top of screen for 5 seconds
-                if (frameCount < 5 * Constants.FPS)
-                {
-                    if (mob.Position.Y < Constants.F)
-                    {
-                        mob.UpdatePosition("down");
-                    }
-                    else if (mob.Position.Y < Constants.F + mob.MoveSpeed )
-                    {
-                        fire(pattern, mob, bulletType, mob.Color, numBullets, trajectory);
-                        mob.UpdatePosition("down");
-                    }
-                }
-                else //mobs begin exiting one by one
-                {
-                    if (frameCount > (5 + mobs.IndexOf(mob)) * Constants.FPS)
-                        mob.UpdatePosition("up");
-                    if (mob.Position.Y < 0)
-                    {
-                        mob.Active = false;
-                    }
-                }
-            }
+            
         }
 
         private void fire(string pattern, MobileEntity mob, string bulletType, Color color, int numBullets, string trajectory)
         {
             if (this.willFire && mob.Active)
             {
-                Bullets.Add(new BulletFormation(pattern, mob.Position, bulletType, Color.White, 10, trajectory));
+                Bullets.Add(new BulletFormationOLD(pattern, mob.Position, bulletType, Color.White, 10, trajectory));
             }
         }
 
@@ -299,7 +264,7 @@ namespace Game1.MoveScripts
             }
             else if (frameCount % 120 == 0 && mob.Active)
             {
-                Bullets.Add(new BulletFormation(pattern, mob.Position, bulletType, Color.White, 10, trajectory));
+                Bullets.Add(new BulletFormationOLD(pattern, mob.Position, bulletType, Color.White, 10, trajectory));
             }
             else
             {

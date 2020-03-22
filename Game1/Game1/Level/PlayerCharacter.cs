@@ -19,6 +19,7 @@ namespace Game1.Level
         int currentFrame;
         bool invincible;
         KeyBinds KeyBinds;
+        BulletMaker bulletMaker;
 
         public PlayerCharacter(MobBase mobBase, Vector2 startingPosition, KeyBinds keybinds) : base(mobBase, startingPosition)
         {
@@ -29,6 +30,7 @@ namespace Game1.Level
             invincible = false;
             invincibleStartFrame = 0;
             KeyBinds = keybinds;
+            bulletMaker = new BulletMaker();
         }
 
         public void Update(Level level, KeyboardState kstate)
@@ -140,7 +142,7 @@ namespace Game1.Level
             if (fireFrame <= currentFrame - (Constants.FPS * Constants.FIRE_RATE))
             {
                 fireFrame = currentFrame;
-                level.playerBullets.Add(MobMaker.CreateBullet("BulletTypeA", Position));
+                level.playerBullets.Add(bulletMaker.CreateMob("BulletTypeA", Position));
             }   
         }
     }

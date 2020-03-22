@@ -3,5 +3,6 @@
   "moveSpeed": 3,
   "mobType": "TypeA",
   "hp": 1,
-  "damage": 1
+  "damage": 1,
+  "pointValue":50
 }

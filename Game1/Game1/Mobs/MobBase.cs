@@ -13,5 +13,6 @@ namespace Game1.Mobs
         public string MobType { get; set; }
         public int HP { get; set; }
         public int Damage { get; set; }
+        public int PointValue { get; set; }
     }
 }

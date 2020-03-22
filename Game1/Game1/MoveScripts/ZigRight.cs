@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,15 +15,15 @@ namespace Game1.MoveScripts
 
         public override void Update()
         {
-            if (frameCount == 0)
+            if (FrameCount == 0)
             {
-                foreach (MobileEntity mob in mobs)
+                foreach (MobileEntity mob in Mobs)
                 {
-                    mob.Position = new Vector2((0 - 60 * mobs.IndexOf(mob)), Constants.E);
+                    mob.Position = new Vector2((0 - 60 * Mobs.IndexOf(mob)), Constants.E);
                     mob.Active = true;
                 }
             }
-            foreach (MobileEntity mob in mobs)
+            foreach (MobileEntity mob in Mobs)
             {
                 //mobs enter from right at E, then move upRight between 0-C, G-K, O-S
                 if (mob.Position.X >= 0 && mob.Position.X < Constants.C || mob.Position.X >= Constants.G && mob.Position.X < Constants.K || mob.Position.X >= Constants.O && mob.Position.X < Constants.S)

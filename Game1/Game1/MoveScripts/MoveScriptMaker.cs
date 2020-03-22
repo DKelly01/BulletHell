@@ -16,20 +16,31 @@ namespace Game1.MoveScripts
             {
                 case "CanCan":
                     return new CanCan(mobs, willFire);
-                    break;
                 case "Arc":
                     return new Arc(mobs, willFire);
-                    break;
                 case "ZigZag":
                     return new ZigZag(mobs, willFire);
-                    break;
                 case "SoloBRight":
                     return new SoloBRight(mobs, willFire);
+                case "Boss1":
+                    return new Boss1(mobs, willFire);
+                case "Boss2":
+                    return new Boss2(mobs, willFire);
+                case "EllLeft":
+                    return new EllLeft(mobs, willFire);
+                case "EllRight":
+                    return new EllRight(mobs, willFire);
+                case "MidBoss":
+                    return new MidBoss(mobs, willFire);
+                case "SinLeft":
+                    return new SinLeft(mobs, willFire);
+                case "ZagLeft":
+                    return new ZagLeft(mobs, willFire);
+                case "ZigRight":
+                    return new ZigRight(mobs, willFire);
 
                 default:
                     return new MoveScript(mobs, willFire);
-
-
             }
 
         }

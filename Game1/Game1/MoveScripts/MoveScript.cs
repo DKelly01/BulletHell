@@ -203,239 +203,24 @@ namespace Game1.MoveScripts
 
         private void EllRight()
         {
-            //set up initial positioning
-            if (frameCount == 0)
-            {
-                foreach (MobileEntity mob in mobs)
-                {
-                    mob.Position = new Vector2(Constants.R, -30 * (mobs.IndexOf(mob) + 1));
-                    mob.Active = true;
-                }
-            }
-            foreach (MobileEntity mob in mobs)
-            {
-                if (mob.Position.Y < Constants.G)
-                {
-                    mob.UpdatePosition("down");
-                }
-                else mob.UpdatePosition("left");
-                if (mob.Position.X < 0)
-                {
-                    mob.Active = false;
-                }
-            }
+            
         }
 
         private void EllLeft()
         {
-            //set up initial positioning
-            if (frameCount == 0)
-            {
-                foreach (MobileEntity mob in mobs)
-                {
-                    mob.Position = new Vector2(Constants.D, -30 * (mobs.IndexOf(mob) + 1));
-                    mob.Active = true;
-                }
-            }
-            foreach (MobileEntity mob in mobs)
-            {
-                if (mob.Position.Y < Constants.G)
-                {
-                    mob.UpdatePosition("down");
-                }
-                else mob.UpdatePosition("right");
-                if (mob.Position.X > Constants.PLAYABLE_WIDTH)
-                {
-                    mob.Active = false;
-                }
-            }
+            
         }
 
         private void Solo_B_Right()
         {
                      
             int numBullets = 10;
-            MobileEntity mob = mobs[0];
-            if (frameCount == 0)
-            {
-                mob.Position = new Vector2(Constants.P, -30);
-                mob.Active = true;
-            }
-            else if (mob.Position.Y < Constants.F)
-            {
-                mob.UpdatePosition("down");
-            }
-            else if (FrameCount % 120 == 0 && mob.Active)
-            {
-                Arrowhead arrowhead = new Arrowhead(new BulletMaker(), mob.Position);
-                Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arrowhead.SetFormation("BulletTypeB", 10),false));
-            }
-            else
-            {
-                mob.UpdatePosition("left");
-                if (mob.Position.X < 0)
-                {
-                    mob.Active = false;
-                }
-            }
+            
         }
 
         private void MidBoss()
         {
-            string bulletType = "BulletTypeA";
-            int numBullets = 10;
-            int timeCap = 26 * Constants.FPS;
-            MobileEntity mob = mobs[0];
-            if (frameCount == 0)
-            {
-                mob.Position = new Vector2(Constants.K, -30);
-                mob.Active = true;
-            }
-            else if (mob.Position.Y < Constants.E && frameCount <= 100)
-            {
-                mob.UpdatePosition("down");
-            }
-            else if (frameCount > 200 && frameCount <= 260)
-            {
-                if (mob.Position.X < Constants.M)
-                {
-                    mob.UpdatePosition("upRight");
-                }
-                if (frameCount % 250 == 0)
-                {
-                    fire("Arc", mob, bulletType, Color.White, numBullets,"Arrowhead");
-                    //Bullets.Add(new BulletFormation("Arc", mob.Position, bulletType, Color.White, 10, "Arrowhead"));
-                }
-            }
-            else if (frameCount > 320 && frameCount <= 380)
-            {
-                if (mob.Position.X < Constants.P)
-                {
-                    mob.UpdatePosition("downRight");
-                }
-                if (frameCount % 370 == 0)
-                {
-                    fire("Arc", mob, bulletType, Color.White, numBullets, "Arc");
-                    //Bullets.Add(new BulletFormation("Arc", mob.Position, bulletType, Color.White, 10, "Arc"));
-                }
-            }
-            else if (frameCount > 440 && frameCount <= 500)
-            {
-                if (mob.Position.X > Constants.M)
-                {
-                    mob.UpdatePosition("left");
-                }
-                if (frameCount % 480 == 0)
-                {
-                    fire("Arc", mob, bulletType, Color.White, numBullets, "Arrowhead");
-                    //Bullets.Add(new BulletFormation("Arc", mob.Position, bulletType, Color.White, 10, "Arrowhead"));
-                }
-            }
-            else if (frameCount > 560 && frameCount <= 620)
-            {
-
-                if (mob.Position.Y > Constants.C)
-                {
-                    mob.UpdatePosition("up");
-                }
-                if (frameCount % 600 == 0)
-                {
-                    fire("Arc", mob, bulletType, Color.White, numBullets, "Arc");
-                    //Bullets.Add(new BulletFormation("Arc", mob.Position, bulletType, Color.White, 10, "Arc"));
-                }
-            }
-            else if (frameCount > 680 && frameCount <= 740)
-            {
-                if (mob.Position.X > Constants.J)
-                {
-                    mob.UpdatePosition("downLeft");
-                }
-                if (frameCount % 720 == 0)
-                {
-                    fire("Arc", mob, bulletType, Color.White, numBullets, "Arrowhead");
-                    //Bullets.Add(new BulletFormation("Arc", mob.Position, bulletType, Color.White, 10, "Arrowhead"));
-                }
-            }
-            else if (frameCount > 800 && frameCount <= 860)
-            {
-                if (mob.Position.X < Constants.M)
-                {
-                    mob.UpdatePosition("right");
-                }
-                if (frameCount % 840 == 0)
-                {
-                    fire("Arc", mob, bulletType, Color.White, numBullets, "Arc");
-                    //Bullets.Add(new BulletFormation("Arc", mob.Position, bulletType, Color.White, 10, "Arc"));
-                }
-            }
-            else if (frameCount > 920 && frameCount <= 980)
-            {
-                if (mob.Position.X > Constants.J)
-                {
-                    mob.UpdatePosition("upLeft");
-                }
-                if (frameCount % 960 == 0)
-                {
-                    fire("Arc", mob, bulletType, Color.White, numBullets, "Arrowhead");
-                    //Bullets.Add(new BulletFormation("Arc", mob.Position, bulletType, Color.White, 10, "Arrowhead"));
-                }
-            }
-            else if (frameCount > 1040 && frameCount <= 1100)
-            {
-                if (mob.Position.X > Constants.G)
-                {
-                    mob.UpdatePosition("left");
-                }
-                if (frameCount % 1080 == 0)
-                {
-                    fire("Arc", mob, bulletType, Color.White, numBullets, "Arc");
-                    //Bullets.Add(new BulletFormation("Arc", mob.Position, bulletType, Color.White, 10, "Arc"));
-                }
-            }
-            else if (frameCount > 1160 && frameCount <= 1220)
-            {
-                if (mob.Position.Y > Constants.B)
-                {
-                    mob.UpdatePosition("up");
-                }
-                if (frameCount % 1200 == 0)
-                {
-                    fire("Arc", mob, bulletType, Color.White, numBullets, "Arrowhead");
-                    //Bullets.Add(new BulletFormation("Arc", mob.Position, bulletType, Color.White, 10, "Arrowhead"));
-                }
-            }
-            else if (frameCount > 1280 && frameCount <= 1340)
-            {
-                if (mob.Position.Y < Constants.E)
-                {
-                    mob.UpdatePosition("downLeft");
-                }
-                if (frameCount % 1320 == 0)
-                {
-                    fire("Arc", mob, bulletType, Color.White, numBullets, "Arc");
-                    //Bullets.Add(new BulletFormation("Arc", mob.Position, bulletType, Color.White, 10, "Arc"));
-                }
-            }
-            else if (frameCount > 1440 && frameCount <= 1460)
-            {
-                if (mob.Position.X > Constants.H)
-                {
-                    mob.UpdatePosition("upLeft");
-                }
-                if (frameCount % 1440 == 0)
-                {
-                    fire("Arc", mob, bulletType, Color.White, numBullets, "Arrowhead");
-                    //Bullets.Add(new BulletFormation("Arc", mob.Position, bulletType, Color.White, 6, "Arrowhead"));
-                }
-            }
-            else if (frameCount > timeCap)
-            {
-                mob.UpdatePosition("up");
-                if (mob.Position.Y <= 0)
-                {
-                    mob.Active = false;
-                }
-            }
+            
         }
         
         /// <summary>
@@ -445,36 +230,7 @@ namespace Game1.MoveScripts
         /// <param name="mobs"></param>
         private void ZigRight()
         {
-            if (frameCount == 0)
-            {
-                foreach (MobileEntity mob in mobs)
-                {
-                    mob.Position = new Vector2((0 - 60 * mobs.IndexOf(mob)), Constants.E);
-                    mob.Active = true;
-                }
-            }
-            foreach (MobileEntity mob in mobs)
-            {
-                //mobs enter from right at E, then move upRight between 0-C, G-K, O-S
-                if (mob.Position.X >= 0 && mob.Position.X < Constants.C || mob.Position.X >= Constants.G && mob.Position.X < Constants.K || mob.Position.X >= Constants.O && mob.Position.X < Constants.S)
-                {
-                    mob.UpdatePosition("upRight");
-                }
-                //the mobs move downRight between C-G, K-O, S-V
-                else if (mob.Position.X >= Constants.C && mob.Position.X < Constants.G || mob.Position.X >= Constants.K && mob.Position.X < Constants.O || mob.Position.X >= Constants.S && mob.Position.X < Constants.V)
-                {
-                    mob.UpdatePosition("downRight");
-                }
-                // just go right if off the either side of the screen
-                else
-                {
-                    mob.UpdatePosition("right");
-                    if (mob.Position.X > Constants.PLAYABLE_WIDTH)
-                    {
-                        mob.Active = false;
-                    }
-                }
-            }
+            
         }
         
         /// <summary>
@@ -484,41 +240,7 @@ namespace Game1.MoveScripts
         /// <param name="mobs"></param>
         private void ZagLeft()
         {
-            if (frameCount == 0)
-            {
-                foreach (MobileEntity mob in mobs)
-                {
-                    mob.Position = new Vector2((660 + 60 * mobs.IndexOf(mob)), Constants.E);
-                    //mob.Active = true;
-                }
-            }
-            foreach (MobileEntity mob in mobs)
-            {
-
-                if (mob.Position.X < Constants.PLAYABLE_WIDTH && mob.Position.X>0)
-                {
-                    mob.Active = true;
-                }
-                //mobs enter from Left at E, then move upLeft between 0-C, G-K, O-S
-                if (mob.Position.X >= 0 && mob.Position.X < Constants.C || mob.Position.X >= Constants.G && mob.Position.X < Constants.K || mob.Position.X >= Constants.O && mob.Position.X < Constants.S)
-                {
-                    mob.UpdatePosition("upLeft");
-                }
-                //the mobs move downLeft between C-G, K-O, S-V
-                else if (mob.Position.X >= Constants.C && mob.Position.X < Constants.G || mob.Position.X >= Constants.K && mob.Position.X < Constants.O || mob.Position.X >= Constants.S && mob.Position.X < Constants.V)
-                {
-                    mob.UpdatePosition("downLeft");
-                }
-                // just go left if off the either side of the screen
-                else
-                {
-                    mob.UpdatePosition("left");
-                    if (mob.Position.X <= 0)
-                    {
-                        mob.Active = false;
-                    }
-                }
-            }
+            
         }
 
         /// <summary>
@@ -529,24 +251,24 @@ namespace Game1.MoveScripts
         private void SinRight()
         {
             // start at E off screen
-            if (frameCount == 0)
+            if (FrameCount == 0)
             {
-                foreach (MobileEntity mob in mobs)
+                foreach (MobileEntity mob in Mobs)
                 {
-                    mob.Position = new Vector2((0 - 60 * mobs.IndexOf(mob)), Constants.E);
+                    mob.Position = new Vector2((0 - 60 * Mobs.IndexOf(mob)), Constants.E);
                     mob.Active = true;
                 }
             }
 
             // x and y are seporate so that the framecount mod can be changed seporately for more fine control
-            foreach (MobileEntity mob in mobs)
+            foreach (MobileEntity mob in Mobs)
             {
-                if (frameCount % 1 == 0)
+                if (FrameCount % 1 == 0)
                 {
                     mob.UpdatePosition("right");
                 }
 
-                if (frameCount % 1 == 0)
+                if (FrameCount % 1 == 0)
                 {
                     mob.Position = new Vector2(mob.Position.X, Constants.E + (-(float)Math.Cos(mob.Position.X / 50) * 150));
                 }
@@ -565,28 +287,28 @@ namespace Game1.MoveScripts
         private void SinLeft()
         {
             // start at E off screen
-            if (frameCount == 0)
+            if (FrameCount == 0)
             {
-                foreach (MobileEntity mob in mobs)
+                foreach (MobileEntity mob in Mobs)
                 {
-                    mob.Position = new Vector2((660 + 60 * mobs.IndexOf(mob)), Constants.E);
+                    mob.Position = new Vector2((660 + 60 * Mobs.IndexOf(mob)), Constants.E);
                     //mob.Active = true;
                 }
             }
 
             // x and y are seporate so that the framecount mod can be changed seporately for more fine control
-            foreach (MobileEntity mob in mobs)
+            foreach (MobileEntity mob in Mobs)
             {
                 if (mob.Position.X < Constants.PLAYABLE_WIDTH && mob.Position.X > 0)
                 {
                     mob.Active = true;
                 }
-                if (frameCount % 1 == 0)
+                if (FrameCount % 1 == 0)
                 {
                     mob.UpdatePosition("left");
                 }
 
-                if (frameCount % 1 == 0)
+                if (FrameCount % 1 == 0)
                 {
                     mob.Position = new Vector2(mob.Position.X, Constants.E + (-(float)Math.Cos(mob.Position.X / 50) * 150));
                 }
@@ -599,11 +321,11 @@ namespace Game1.MoveScripts
 
         private void Boss1()
         {
-            MobileEntity mob = mobs[0];
+            MobileEntity mob = Mobs[0];
             string bulletType = "BulletTypeB";
             int numBullets = 10;
             //Enter at P at top of screen
-            if (frameCount == 0)
+            if (FrameCount == 0)
             {
                 mob.Position = new Vector2(Constants.P, -30);
                 mob.Active = true;

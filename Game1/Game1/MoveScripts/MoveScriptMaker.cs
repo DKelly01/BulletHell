@@ -16,12 +16,12 @@ namespace Game1.MoveScripts
             switch (scriptName)
             {
                 case "CanCan":
-                    return new CanCan(mobs, willFire,bulletMaker);
+                    return new CanCan(mobs, willFire);
                     break;
                 case "Arc":
-                    return new Arc(mobs, false, bullet);
+                    return new Arc(mobs, false);
                 default:
-                    return new CanCan(mobs, willFire, mobMaker);
+                    return new MoveScript(mobs, willFire);
 
 
             }

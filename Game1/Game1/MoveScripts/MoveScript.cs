@@ -38,6 +38,14 @@ namespace Game1.MoveScripts
 
         public virtual void Update()
         {
+            foreach (MobileEntity mob in Mobs)
+            {
+                mob.UpdatePosition("down");
+                if (mob.Position.Y >= Constants.HEIGHT)
+                {
+                    mob.Active = false;
+                }
+            }
             //if (this.moveType == "CanCan")
             //{
             //    CanCan();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game1.MoveScripts
 {
-    class Down
+    class ZagLeft
     {
     }
 }

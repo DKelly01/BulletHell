@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Game1.Mobs;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,11 @@ namespace Game1.MoveScripts
         /// <param name="mobs"></param>
         public MoveScript(List<MobileEntity> mobs, bool willFire)
         {
-            this.Name = name ?? throw new ArgumentNullException(nameof(name));
             this.Mobs = mobs ?? throw new ArgumentNullException(nameof(mobs));
             this.Bullets = new List<MoveScript>();
             this.willFire = willFire;
             this.FrameCount = 0;
-            this.MobMaker = mobMaker;
+            this.MobMaker = new BulletMaker();
         }
 
         public virtual void Update()
@@ -46,10 +46,7 @@ namespace Game1.MoveScripts
                     mob.Active = false;
                 }
             }
-            //if (this.moveType == "CanCan")
-            //{
-            //    CanCan();
-            //}
+
             //else if (this.moveType == "EllRight")
             //{
             //    EllRight();
@@ -118,18 +115,18 @@ namespace Game1.MoveScripts
             string trajectory = "Arrowhead";
             int numBullets = 1;
             string bulletType = "BulletTypeA";
-            if (frameCount == 0)
+            if (FrameCount == 0)
             {
                 foreach (MobileEntity mob in mobs)
                 {
-                    mob.Position = new Vector2((660 + 60 * mobs.IndexOf(mob)), (0 - 60 * mobs.IndexOf(mob)));  
+                    mob.Position = new Vector2((660 + 60 * Mobs.IndexOf(mob)), (0 - 60 * Mobs.IndexOf(mob)));  
                 }
             }
-            foreach (MobileEntity mob in mobs)
+            foreach (MobileEntity mob in Mobs)
             {
-                if (frameCount % (firingInterval * Constants.FPS) == 0 && frameCount > 0)
+                if (FrameCount % (firingInterval * Constants.FPS) == 0 && FrameCount > 0)
                 {
-                    if(mobs.IndexOf(mob)%mobFiringInterval==0)
+                    if(Mobs.IndexOf(mob)%mobFiringInterval==0)
                     fire(pattern, mob, bulletType, mob.Color, numBullets, trajectory);
                 }
                 //mobs enter from top right corner of screen, move to center 
@@ -161,11 +158,11 @@ namespace Game1.MoveScripts
         /// <param name="mobs"></param>
         private void DiagonalRight()
         {
-            if (frameCount == 0)
+            if (FrameCount == 0)
             {
-                foreach (MobileEntity mob in mobs)
+                foreach (MobileEntity mob in Mobs)
                 {
-                    mob.Position = new Vector2((0 - 60 * mobs.IndexOf(mob)), (0 - 60 * mobs.IndexOf(mob)));
+                    mob.Position = new Vector2((0 - 60 * Mobs.IndexOf(mob)), (0 - 60 * Mobs.IndexOf(mob)));
                     mob.Active = true;
                 }
             }
@@ -196,13 +193,13 @@ namespace Game1.MoveScripts
             
         }
 
-        private void fire(string pattern, MobileEntity mob, string bulletType, Color color, int numBullets, string trajectory)
-        {
-            if (this.willFire && mob.Active)
-            {
-                Bullets.Add(new BulletFormationOLD(pattern, mob.Position, bulletType, Color.White, 10, trajectory));
-            }
-        }
+        //private void fire(string pattern, MobileEntity mob, string bulletType, Color color, int numBullets, string trajectory)
+        //{
+        //    if (this.willFire && mob.Active)
+        //    {
+        //        Bullets.Add(new BulletFormationOLD(pattern, mob.Position, bulletType, Color.White, 10, trajectory));
+        //    }
+        //}
 
         private void EllRight()
         {
@@ -256,9 +253,7 @@ namespace Game1.MoveScripts
 
         private void Solo_B_Right()
         {
-            string bulletType = "BulletTypeB";
-            string trajectory = "Arrowhead";
-            string pattern = "Arrowhead";
+                     
             int numBullets = 10;
             MobileEntity mob = mobs[0];
             if (frameCount == 0)
@@ -270,9 +265,10 @@ namespace Game1.MoveScripts
             {
                 mob.UpdatePosition("down");
             }
-            else if (frameCount % 120 == 0 && mob.Active)
+            else if (FrameCount % 120 == 0 && mob.Active)
             {
-                Bullets.Add(new BulletFormationOLD(pattern, mob.Position, bulletType, Color.White, 10, trajectory));
+                Arrowhead arrowhead = new Arrowhead(new BulletMaker(), mob.Position);
+                Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arrowhead.SetFormation("BulletTypeB", 10),false));
             }
             else
             {

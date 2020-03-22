@@ -11,7 +11,6 @@ namespace Game1.MoveScripts
     {
         public static MoveScript CreateMoveScript(string scriptName, List<MobileEntity>mobs, bool willFire)
         {
-            MobMaker bulletMaker = new BulletMaker();
             //return new MoveScript(scriptName, mobs, willFire);
             switch (scriptName)
             {
@@ -19,7 +18,14 @@ namespace Game1.MoveScripts
                     return new CanCan(mobs, willFire);
                     break;
                 case "Arc":
-                    return new Arc(mobs, false);
+                    return new Arc(mobs, willFire);
+                    break;
+                case "ZigZag":
+                    return new ZigZag(mobs, willFire);
+                    break;
+                case "SoloBRight":
+                    return new SoloBRight(mobs, willFire);
+
                 default:
                     return new MoveScript(mobs, willFire);
 

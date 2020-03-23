@@ -29,9 +29,10 @@ namespace Game1
 
 
         SpriteFont gameFont;
-        MobileEntity player;
+        PlayerCharacter player;
         Level.Level level;
         KeyBinds keyBinds = new KeyBinds();
+        bool menuOpen = true;
 
         public Game1()
         {
@@ -53,7 +54,7 @@ namespace Game1
         {
             Mobs.PlayerMaker playerMaker = new Mobs.PlayerMaker(keyBinds);
             Vector2 defaultStart = new Vector2(Constants.WIDTH / 2, (Constants.HEIGHT - 10) - Constants.PLAYER_RADIUS);
-            player = playerMaker.CreateMob("Player",defaultStart);
+            player = (PlayerCharacter)playerMaker.CreateMob("Player",defaultStart);
             level = Builder.CreateLevel("Level1");
             base.Initialize();
         }
@@ -101,7 +102,23 @@ namespace Game1
                 Exit();
             //Add your update logic here
             KeyboardState kstate = Keyboard.GetState();
-            level.Update((PlayerCharacter)player, kstate);
+            if (kstate.IsKeyDown(Keys.M))
+            {
+                menuOpen = true;
+            }
+            if (menuOpen)
+            {
+                Menu.Display();
+                if (kstate.IsKeyDown(Keys.Space))
+                {
+                    menuOpen = false;
+                }
+            }
+            else
+            {
+                level.Update(player, kstate);
+            }
+            
             base.Update(gameTime);
         }
 
@@ -123,8 +140,15 @@ namespace Game1
             {
                 spriteBatch.Draw(hitboxSprite, new Vector2(player.Position.X - 6, player.Position.Y - 2), Color.Chartreuse);
             }
-
-            spriteBatch.DrawString(gameFont, (level.FrameCount/60).ToString(), new Vector2(780, 70), Color.Chartreuse);
+            
+            //spriteBatch.DrawString(gameFont, (level.FrameCount/60).ToString(), new Vector2(780, 70), Color.Chartreuse);
+            spriteBatch.DrawString(gameFont, $"Player Lives: {player.Lives}", new Vector2(725, 70), Color.Chartreuse);
+            if (menuOpen)
+            {
+                spriteBatch.DrawString(gameFont, Menu.menuString1, new Vector2(100, 100), Color.Fuchsia);
+                spriteBatch.DrawString(gameFont, Menu.menuString2, new Vector2(100, 150), Color.Fuchsia);
+                spriteBatch.DrawString(gameFont, Menu.menuString3, new Vector2(100, 200), Color.Fuchsia);
+            }
             foreach (MobileEntity mob in level.GetMobs())
             {
                 if (mob.Active)

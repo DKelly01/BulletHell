@@ -13,7 +13,7 @@ namespace Game1.Level
     class PlayerCharacter : MobileEntity
     {
         public float PrecisionSpeed { get; set; }
-        int Lives { get; set; }
+        public int Lives { get; set; }
         int invincibleStartFrame;
         int fireFrame;
         int currentFrame;

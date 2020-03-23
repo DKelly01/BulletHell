@@ -47,6 +47,7 @@
     <Compile Include="Level\Builder.cs" />
     <Compile Include="Level\Bases.cs" />
     <Compile Include="Level\WaveBase.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="MoveScripts\Boss1.cs" />
     <Compile Include="Mobs\Bullet.cs" />
     <Compile Include="Mobs\BulletMaker.cs" />

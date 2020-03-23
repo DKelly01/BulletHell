@@ -14,14 +14,18 @@ namespace Game1.MoveScripts
         public Boss2(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
             FrameCount = 0;
-            mobs[0].Position = new Vector2(-30, Constants.A);
-            mobs[0].Active = true;
         }
 
         public override void Update()
         {
             MobileEntity mob = Mobs[0];
             string bulletType = "BulletTypeB";
+
+            if (FrameCount == 0)
+            {
+                mob.Position = new Vector2(Constants.P, -70);
+                mob.Active = true;
+            }
 
             //start sin wave from top left
             if (FrameCount <= 11 * Constants.FPS)

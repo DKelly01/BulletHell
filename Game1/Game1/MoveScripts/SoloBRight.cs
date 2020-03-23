@@ -13,17 +13,17 @@ namespace Game1.MoveScripts
         public SoloBRight(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
             FrameCount = 0;
-            //mobs[0].Position = new Vector2(Constants.P, -30);
-           foreach(MobileEntity mob in mobs)
-            {
-                mob.Position = new Vector2(Constants.P, -50);
-                mob.Active = true;
-            }
         }
 
         public override void Update()
         {
             MobileEntity mob = Mobs[0];
+            if (FrameCount == 0)
+            {
+                    mob.Position = new Vector2(Constants.P, -50);
+                    mob.Active = true;
+            }
+            
             if (mob.Position.Y < Constants.F)
             {
                 mob.UpdatePosition("down");

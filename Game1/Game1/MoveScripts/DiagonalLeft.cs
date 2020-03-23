@@ -17,7 +17,7 @@ namespace Game1.MoveScripts
             foreach (MobileEntity mob in Mobs)
             {
                 mob.Position = new Vector2((660 + 60 * Mobs.IndexOf(mob)), (0 - 60 * Mobs.IndexOf(mob)));
-                mob.Active = true;
+                mob.Active = false;
             }
         }
         public override void Update()

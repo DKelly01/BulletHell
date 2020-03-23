@@ -163,16 +163,15 @@ namespace Game1.MoveScripts
                         ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
                         Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
                     }
-                    else if (FrameCount > timeCap)
+                }
+                if (FrameCount > timeCap)
+                {
+                    mob.UpdatePosition("up");
+                    if (mob.Position.Y <= 0)
                     {
-                        mob.UpdatePosition("up");
-                        if (mob.Position.Y <= 0)
-                        {
-                            mob.Active = false;
-                        }
+                        mob.Active = false;
                     }
                 }
-
             }
             foreach (MoveScript formation in Bullets)
             {

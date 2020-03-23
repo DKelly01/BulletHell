@@ -12,18 +12,15 @@ namespace Game1.MoveScripts
         public ZigRight(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
             FrameCount = 0;
+            foreach (MobileEntity mob in Mobs)
+            {
+                mob.Position = new Vector2((0 - 60 * Mobs.IndexOf(mob)), Constants.E);
+                mob.Active = true;
+            }
         }
 
         public override void Update()
         {
-            if (FrameCount == 0)
-            {
-                foreach (MobileEntity mob in Mobs)
-                {
-                    mob.Position = new Vector2((0 - 60 * Mobs.IndexOf(mob)), Constants.E);
-                    mob.Active = true;
-                }
-            }
             foreach (MobileEntity mob in Mobs)
             {
                 //mobs enter from right at E, then move upRight between 0-C, G-K, O-S

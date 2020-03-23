@@ -33,7 +33,7 @@ namespace Game1.Level
             return mobs;
         }     
 
-        List<MobileEntity> GetPhaseMobs()
+        public List<MobileEntity> GetPhaseMobs()
         {
             List<MobileEntity> mobs = new List<MobileEntity>();
             foreach (Phase phase in Phases)
@@ -53,7 +53,13 @@ namespace Game1.Level
             {
                 collisionDetector = new CollisionDetector(this.playerBullets, mob);   
             }
-            
+            if (player.Color == Color.Red)
+            {
+                foreach(MobileEntity mob in mobs)
+                {
+                    mob.Active = false;
+                }
+            }
         }
 
         /// <summary>

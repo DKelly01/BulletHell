@@ -10,7 +10,7 @@ namespace Game1
     {
 
         KeyBinds keyBinds;
-        public static string menuString1 = "Press SPACE to start, ESC to quit";
+        public static string menuString1 = "Press SPACE to play, ESC to quit";
         public static string menuString2 = "Press m to return to menu any time";
         public static string menuString3 = "Press k to set keybinds";
         public static string keySetPrompt1 = $"Current keybinds: ";

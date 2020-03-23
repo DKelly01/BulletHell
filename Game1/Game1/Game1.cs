@@ -29,7 +29,7 @@ namespace Game1
 
 
         SpriteFont gameFont;
-        PlayerCharacter player;
+        MobileEntity player;
         Level.Level level;
         KeyBinds keyBinds = new KeyBinds();
 
@@ -51,7 +51,9 @@ namespace Game1
         /// </summary>
         protected override void Initialize()
         {
-            player = MobMaker.CreatePlayer(keyBinds);
+            Mobs.PlayerMaker playerMaker = new Mobs.PlayerMaker(keyBinds);
+            Vector2 defaultStart = new Vector2(Constants.WIDTH / 2, (Constants.HEIGHT - 10) - Constants.PLAYER_RADIUS);
+            player = playerMaker.CreateMob("Player",defaultStart);
             level = Builder.CreateLevel("Level1");
             base.Initialize();
         }
@@ -99,7 +101,7 @@ namespace Game1
                 Exit();
             //Add your update logic here
             KeyboardState kstate = Keyboard.GetState();
-            level.Update(player, kstate);
+            level.Update((PlayerCharacter)player, kstate);
             base.Update(gameTime);
         }
 
@@ -122,7 +124,7 @@ namespace Game1
                 spriteBatch.Draw(hitboxSprite, new Vector2(player.Position.X - 6, player.Position.Y - 2), Color.Chartreuse);
             }
 
-            //spriteBatch.DrawString(gameFont, "look!", new Vector2(100, 100), Color.Chartreuse);
+            spriteBatch.DrawString(gameFont, (level.FrameCount/60).ToString(), new Vector2(780, 70), Color.Chartreuse);
             foreach (MobileEntity mob in level.GetMobs())
             {
                 if (mob.Active)

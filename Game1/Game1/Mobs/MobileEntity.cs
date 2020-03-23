@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1
 {
-    class MobileEntity
+    public class MobileEntity
     {
         public int HitRadius { get => this.mobBase.HitRadius; }
         public Vector2 Position { get; set; }
@@ -26,7 +26,7 @@ namespace Game1
             this.mobBase = mobBase;
             this.MoveSpeed = mobBase.MoveSpeed;
             Position = startingPosition;
-            Active = false;
+            Active = true;
             Color = Color.White;
         }
 

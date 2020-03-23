@@ -14,22 +14,27 @@ namespace Game1.Level
         MoveScript script;
         public int StartTime { get; set; }
         public bool Active { get; set; }
+        MobMaker mobMaker= new MobMaker();
 
         public Wave(WaveBase waveBase)
         {
-            Mobs = MobMaker.GetMobs(waveBase.Mobs);
-            script = new MoveScript(waveBase.Movescript, Mobs, waveBase.WillFire);
+            Mobs = new List<MobileEntity>();
+            foreach(string mob in waveBase.Mobs)
+            {
+                Mobs.Add(mobMaker.CreateMob(mob, new Vector2(0, -100)));
+            }
+            script = MoveScriptMaker.CreateMoveScript(waveBase.Movescript, Mobs, waveBase.WillFire);
             StartTime = waveBase.StartTime * Constants.FPS;
             Active = true;
         }
 
         public List<MobileEntity> Bullets()
         {
-            List<BulletFormation> formations = script.Bullets;
+            List<MoveScript> formations = script.Bullets;
             List<MobileEntity> bullets = new List<MobileEntity>();
-            foreach (BulletFormation formation in formations)
+            foreach (MoveScript formation in formations)
             {
-                List<MobileEntity> bulletSet = formation.Bullets;
+                List<MobileEntity> bulletSet = formation.Mobs;
                 foreach (MobileEntity bullet in bulletSet)
                 {
                     bullets.Add(bullet);
@@ -41,7 +46,7 @@ namespace Game1.Level
         public void update()
         {
             //this section can be modified to update the active status of mobs
-            script.update();
+            script.Update();
             if (!script.Active)
             {
                 Active = false;

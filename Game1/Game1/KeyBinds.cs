@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Game1
 {
-    class KeyBinds
+    public class KeyBinds
     {
         public KeyBinds()
         {

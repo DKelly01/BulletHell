@@ -12,17 +12,19 @@ namespace Game1.MoveScripts
     {
         public SoloBRight(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
+            FrameCount = 0;
+            //mobs[0].Position = new Vector2(Constants.P, -30);
+           foreach(MobileEntity mob in mobs)
+            {
+                mob.Position = new Vector2(Constants.P, -50);
+                mob.Active = true;
+            }
         }
 
         public override void Update()
         {
             MobileEntity mob = Mobs[0];
-            if (FrameCount == 0)
-            {
-                mob.Position = new Vector2(Constants.P, -30);
-                mob.Active = true;
-            }
-            else if (mob.Position.Y < Constants.F)
+            if (mob.Position.Y < Constants.F)
             {
                 mob.UpdatePosition("down");
             }
@@ -39,6 +41,11 @@ namespace Game1.MoveScripts
                     mob.Active = false;
                 }
             }
+            foreach (MoveScript formation in Bullets)
+            {
+                formation.Update();
+            }
+            FrameCount++;
         }
     }
 }

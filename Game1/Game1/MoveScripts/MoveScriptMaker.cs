@@ -20,7 +20,7 @@ namespace Game1.MoveScripts
                     return new Arc(mobs, willFire);
                 case "ZigZag":
                     return new ZigZag(mobs, willFire);
-                case "SoloBRight":
+                case "Solo_B_Right":
                     return new SoloBRight(mobs, willFire);
                 case "Boss1":
                     return new Boss1(mobs, willFire);

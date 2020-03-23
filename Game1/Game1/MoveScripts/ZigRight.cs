@@ -11,6 +11,7 @@ namespace Game1.MoveScripts
     {
         public ZigRight(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
+            FrameCount = 0;
         }
 
         public override void Update()
@@ -45,6 +46,11 @@ namespace Game1.MoveScripts
                     }
                 }
             }
+            foreach (MoveScript formation in Bullets)
+            {
+                formation.Update();
+            }
+            FrameCount++;
         }
     }
 }

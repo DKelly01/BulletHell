@@ -14,7 +14,7 @@ namespace Game1.Utilities
         {
             try
             {   // Open the text file using a stream reader.
-                using (StreamReader reader = new StreamReader($"JSONData/{fileName}.json"))
+                using (StreamReader reader = new StreamReader($"Data/{fileName}.json"))
                 {
                     string file = reader.ReadToEnd();
                     // Read the stream to a string, and write the string to the console.

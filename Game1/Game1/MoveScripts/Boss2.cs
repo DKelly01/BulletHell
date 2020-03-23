@@ -13,20 +13,18 @@ namespace Game1.MoveScripts
     {
         public Boss2(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
+            FrameCount = 0;
+            mobs[0].Position = new Vector2(-30, Constants.A);
+            mobs[0].Active = true;
         }
 
         public override void Update()
         {
             MobileEntity mob = Mobs[0];
             string bulletType = "BulletTypeB";
-            if (FrameCount == 0)
-            {
-                mob.Position = new Vector2(-30, Constants.A);
-                mob.Active = true;
-            }
 
             //start sin wave from top left
-            else if (FrameCount <= 11 * Constants.FPS)
+            if (FrameCount <= 11 * Constants.FPS)
             {
                 if (FrameCount % 1 == 0)
                 {
@@ -113,6 +111,11 @@ namespace Game1.MoveScripts
             {
                 mob.Color = Color.Red;
             }
+            foreach (MoveScript formation in Bullets)
+            {
+                formation.Update();
+            }
+            FrameCount++;
 
         }
     }

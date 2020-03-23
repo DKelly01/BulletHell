@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,19 +11,16 @@ namespace Game1.MoveScripts
     {
         public EllLeft(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
+            FrameCount = 0;
+            foreach (MobileEntity mob in Mobs)
+            {
+                mob.Position = new Vector2(Constants.D, -30 * (Mobs.IndexOf(mob) + 1));
+                mob.Active = true;
+            }
         }
 
         public override void Update()
         {
-            //set up initial positioning
-            if (FrameCount == 0)
-            {
-                foreach (MobileEntity mob in Mobs)
-                {
-                    mob.Position = new Vector2(Constants.D, -30 * (Mobs.IndexOf(mob) + 1));
-                    mob.Active = true;
-                }
-            }
             foreach (MobileEntity mob in Mobs)
             {
                 if (mob.Position.Y < Constants.G)
@@ -35,6 +33,11 @@ namespace Game1.MoveScripts
                     mob.Active = false;
                 }
             }
+            foreach (MoveScript formation in Bullets)
+            {
+                formation.Update();
+            }
+            FrameCount++;
         }
     }
 }

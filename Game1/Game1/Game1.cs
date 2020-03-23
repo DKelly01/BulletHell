@@ -124,7 +124,7 @@ namespace Game1
                 spriteBatch.Draw(hitboxSprite, new Vector2(player.Position.X - 6, player.Position.Y - 2), Color.Chartreuse);
             }
 
-            //spriteBatch.DrawString(gameFont, "look!", new Vector2(100, 100), Color.Chartreuse);
+            spriteBatch.DrawString(gameFont, (level.FrameCount/60).ToString(), new Vector2(780, 70), Color.Chartreuse);
             foreach (MobileEntity mob in level.GetMobs())
             {
                 if (mob.Active)

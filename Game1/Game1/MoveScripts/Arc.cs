@@ -10,6 +10,10 @@ namespace Game1.MoveScripts
     {
         public Arc(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
+            foreach (MobileEntity mob in mobs)
+            {
+                mob.Active = true;
+            }
         }
 
         public override void Update()
@@ -65,6 +69,11 @@ namespace Game1.MoveScripts
                     }
                 }
             }
+            foreach (MoveScript formation in Bullets)
+            {
+                formation.Update();
+            }
+            FrameCount++;
         }
     }
 }

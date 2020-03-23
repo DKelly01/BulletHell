@@ -26,7 +26,7 @@ namespace Game1
             this.mobBase = mobBase;
             this.MoveSpeed = mobBase.MoveSpeed;
             Position = startingPosition;
-            Active = false;
+            Active = true;
             Color = Color.White;
         }
 

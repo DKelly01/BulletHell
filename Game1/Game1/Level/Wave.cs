@@ -18,13 +18,12 @@ namespace Game1.Level
 
         public Wave(WaveBase waveBase)
         {
-            //Mobs = MobMaker.GetMobs(waveBase.Mobs);
             Mobs = new List<MobileEntity>();
             foreach(string mob in waveBase.Mobs)
             {
-                Mobs.Add(mobMaker.CreateMob("mob", new Vector2(-100, 100)));
+                Mobs.Add(mobMaker.CreateMob(mob, new Vector2(0, -100)));
             }
-            script = new MoveScript(Mobs, waveBase.WillFire);
+            script = MoveScriptMaker.CreateMoveScript(waveBase.Movescript, Mobs, waveBase.WillFire);
             StartTime = waveBase.StartTime * Constants.FPS;
             Active = true;
         }

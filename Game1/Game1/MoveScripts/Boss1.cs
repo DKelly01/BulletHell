@@ -13,21 +13,18 @@ namespace Game1.MoveScripts
     {
         public Boss1(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
+            FrameCount = 0;
+            mobs[0].Position = new Vector2(Constants.P, -30);
+            mobs[0].Active = true;
         }
 
         public override void Update()
         {
             MobileEntity mob = Mobs[0];
             string bulletType = "BulletTypeB";
-            //Enter at P at top of screen
-            if (FrameCount == 0)
-            {
-                mob.Position = new Vector2(Constants.P, -30);
-                mob.Active = true;
-            }
-
+            
             //ZigZag down for 4 seconds
-            else if (FrameCount <= 4 * Constants.FPS)
+            if (FrameCount <= 4 * Constants.FPS)
             {
                 if (mob.Position.Y < Constants.A || mob.Position.Y >= Constants.D)
                 {
@@ -163,7 +160,7 @@ namespace Game1.MoveScripts
             if (FrameCount % 60 == 0 && mob.Active && FrameCount > 4 * Constants.FPS)
             {
                 Formation formation = new ZigZagFormation(new BulletMaker(), mob.Position);
-                Bullets.Add(MoveScriptMaker.CreateMoveScript("ZigZag", formation.SetFormation(bulletType), false);
+                Bullets.Add(MoveScriptMaker.CreateMoveScript("ZigZag", formation.SetFormation(bulletType), false));
             }
 
             //changed the dead area outside the window so it wouldn't kill mobs when they spawn just off screen
@@ -177,6 +174,11 @@ namespace Game1.MoveScripts
             //{
             //    this.Active = false;
             //}
+            foreach (MoveScript formation in Bullets)
+            {
+                formation.Update();
+            }
+            FrameCount++;
         }
     }
 }

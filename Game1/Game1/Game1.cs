@@ -32,7 +32,9 @@ namespace Game1
         PlayerCharacter player;
         Level.Level level;
         KeyBinds keyBinds = new KeyBinds();
+        Menu menu;
         bool menuOpen = true;
+        bool keySet = false;
 
         public Game1()
         {
@@ -56,6 +58,7 @@ namespace Game1
             Vector2 defaultStart = new Vector2(Constants.WIDTH / 2, (Constants.HEIGHT - 10) - Constants.PLAYER_RADIUS);
             player = (PlayerCharacter)playerMaker.CreateMob("Player",defaultStart);
             level = Builder.CreateLevel("Level1");
+            menu = new Menu(keyBinds);
             base.Initialize();
         }
 
@@ -108,10 +111,13 @@ namespace Game1
             }
             if (menuOpen)
             {
-                Menu.Display();
                 if (kstate.IsKeyDown(Keys.Space))
                 {
                     menuOpen = false;
+                }
+                else if (kstate.IsKeyDown(Keys.K))
+                {
+                    keySet = true;
                 }
             }
             else
@@ -145,9 +151,17 @@ namespace Game1
             spriteBatch.DrawString(gameFont, $"Player Lives: {player.Lives}", new Vector2(725, 70), Color.Chartreuse);
             if (menuOpen)
             {
-                spriteBatch.DrawString(gameFont, Menu.menuString1, new Vector2(100, 100), Color.Fuchsia);
-                spriteBatch.DrawString(gameFont, Menu.menuString2, new Vector2(100, 150), Color.Fuchsia);
-                spriteBatch.DrawString(gameFont, Menu.menuString3, new Vector2(100, 200), Color.Fuchsia);
+                if (keySet)
+                {
+                    spriteBatch.DrawString(gameFont, menu.keySetPrompt1, new Vector2(100, 100), Color.Fuchsia);
+                }
+                else
+                {
+                    spriteBatch.DrawString(gameFont, Menu.menuString1, new Vector2(100, 100), Color.Fuchsia);
+                    spriteBatch.DrawString(gameFont, Menu.menuString2, new Vector2(100, 150), Color.Fuchsia);
+                    spriteBatch.DrawString(gameFont, Menu.menuString3, new Vector2(100, 200), Color.Fuchsia);
+                }
+                
             }
             foreach (MobileEntity mob in level.GetMobs())
             {

@@ -57,7 +57,10 @@ namespace Game1.Level
             {
                 foreach(MobileEntity mob in mobs)
                 {
-                    mob.Active = false;
+                    if (mob.MobType != "Boss" && mob.MobType != "MidBoss")
+                    {
+                        mob.Active = false;
+                    }
                 }
             }
         }

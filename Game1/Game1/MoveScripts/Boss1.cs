@@ -14,8 +14,6 @@ namespace Game1.MoveScripts
         public Boss1(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
             FrameCount = 0;
-            mobs[0].Position = new Vector2(Constants.P, -30);
-            mobs[0].Active = true;
         }
 
         public override void Update()
@@ -23,6 +21,12 @@ namespace Game1.MoveScripts
             MobileEntity mob = Mobs[0];
             string bulletType = "BulletTypeB";
             
+            if (FrameCount == 0)
+            {
+                mob.Position = new Vector2(Constants.P, -70);
+                mob.Active = true;
+            }
+
             //ZigZag down for 4 seconds
             if (FrameCount <= 4 * Constants.FPS)
             {
@@ -143,7 +147,7 @@ namespace Game1.MoveScripts
             }
 
             //small arc arcoss screen to exit
-            else if (FrameCount > 38 * Constants.FPS && FrameCount < 45 * Constants.FPS)
+            else if (FrameCount > 38 * Constants.FPS )
             {
                 if (FrameCount % 1 == 0)
                 {
@@ -152,12 +156,12 @@ namespace Game1.MoveScripts
 
                 if (FrameCount % 1 == 0)
                 {
-                    mob.Position = new Vector2(mob.Position.X, Constants.H + (-(float)Math.Sin(mob.Position.X / 200) * 100));
+                    mob.Position = new Vector2(mob.Position.X, Constants.H - 40 + (-(float)Math.Sin(mob.Position.X / 200) * 100));
                 }
             }
 
             //bullets shoot every second after 4 seconds have passed
-            if (FrameCount % 60 == 0 && mob.Active && FrameCount > 4 * Constants.FPS)
+            if (FrameCount % 60 == 0 && mob.Active && FrameCount > 4 * Constants.FPS && mob.Position.X < 670)
             {
                 Formation formation = new ZigZagFormation(new BulletMaker(), mob.Position);
                 Bullets.Add(MoveScriptMaker.CreateMoveScript("ZigZag", formation.SetFormation(bulletType), false));
@@ -166,7 +170,7 @@ namespace Game1.MoveScripts
             //changed the dead area outside the window so it wouldn't kill mobs when they spawn just off screen
             if (mob.Position.X < -60 || mob.Position.X > 670)
             {
-                mob.Color = Color.Red;
+                mob.Color = Color.TransparentBlack;
                 //this.Active = false;
             }
 

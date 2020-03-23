@@ -12,17 +12,20 @@ namespace Game1.MoveScripts
         public EllRight(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
             //set up initial positioning
-            FrameCount = 0;      
-            foreach (MobileEntity mob in mobs)
-            {
-                mob.Position = new Vector2(Constants.R, -30 * (mobs.IndexOf(mob) + 1));
-                mob.Active = true;
-            }
-        
+            FrameCount = 0;        
         }
 
         public override void Update()
         {
+            if (FrameCount == 0)
+            {
+                foreach (MobileEntity mob in Mobs)
+                {
+                    mob.Position = new Vector2(Constants.R, -30 * (Mobs.IndexOf(mob) + 1));
+                    mob.Active = true;
+                }
+            }
+
             foreach (MobileEntity mob in Mobs)
             {
                 if (mob.Position.Y < Constants.G)

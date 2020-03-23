@@ -16,6 +16,10 @@ namespace Game1.MoveScripts
             {
                 case "CanCan":
                     return new CanCan(mobs, willFire);
+                case "DiagonalLeft":
+                    return new DiagonalLeft(mobs, willFire);
+                case "DiagonalRight":
+                    return new DiagonalRight(mobs, willFire);
                 case "Arc":
                     return new Arc(mobs, willFire);
                 case "ZigZag":

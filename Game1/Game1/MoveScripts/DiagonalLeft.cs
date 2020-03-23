@@ -13,18 +13,24 @@ namespace Game1.MoveScripts
     {
         public DiagonalLeft(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
-            FrameCount = 0;
-            foreach (MobileEntity mob in Mobs)
-            {
-                mob.Position = new Vector2((660 + 60 * Mobs.IndexOf(mob)), (0 - 60 * Mobs.IndexOf(mob)));
-                mob.Active = true;
-            }
+            FrameCount = 0;            
         }
+
         public override void Update()
         {
-            int firingInterval = 3;
-            int mobFiringInterval = 3;
+            int firingInterval = 2;
+            int mobFiringInterval = 2;
             string bulletType = "BulletTypeA";
+
+            if (FrameCount == 0)
+            {
+                foreach (MobileEntity mob in Mobs)
+                {
+                    mob.Position = new Vector2((690 + 60 * Mobs.IndexOf(mob)), (-30 - 60 * Mobs.IndexOf(mob)));
+                    mob.Active = true;
+                }
+            }
+
             foreach (MobileEntity mob in Mobs)
             {
                 if (FrameCount % (firingInterval * Constants.FPS) == 0 && FrameCount > 0)

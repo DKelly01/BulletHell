@@ -12,15 +12,18 @@ namespace Game1.MoveScripts
         public SinRight(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
             FrameCount = 0;
-            foreach (MobileEntity mob in Mobs)
-            {
-                mob.Position = new Vector2((0 - 60 * Mobs.IndexOf(mob)), Constants.E);
-                mob.Active = true;
-            }
         }
 
         public override void Update()
         {
+            if (FrameCount == 0)
+            {
+                foreach (MobileEntity mob in Mobs)
+                {
+                    mob.Position = new Vector2((0 - 60 * Mobs.IndexOf(mob)), Constants.E);
+                    mob.Active = true;
+                }
+            }
             // x and y are seporate so that the framecount mod can be changed seporately for more fine control
             foreach (MobileEntity mob in Mobs)
             {

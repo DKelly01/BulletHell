@@ -14,11 +14,6 @@ namespace Game1.MoveScripts
         public MidBoss(List<MobileEntity> mobs, bool willFire) : base(mobs, willFire)
         {
             FrameCount = 0;
-            foreach(MobileEntity mob in mobs)
-            {
-                mob.Position = new Vector2(Constants.K, -30);
-                mob.Active = true;
-            }
         }
 
         public override void Update()
@@ -27,7 +22,13 @@ namespace Game1.MoveScripts
             int numBullets = 10;
             int timeCap = 26 * Constants.FPS;
             MobileEntity mob = Mobs[0];
-            
+
+            if (FrameCount == 0)
+            {
+                mob.Position = new Vector2(Constants.K, -30);
+                mob.Active = true;
+            }
+
             if (mob.Position.Y < Constants.E && FrameCount <= 100)
             {
                 mob.UpdatePosition("down");
@@ -92,88 +93,89 @@ namespace Game1.MoveScripts
                     ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
                     Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
                 }
-                else if (FrameCount > 800 && FrameCount <= 860)
-                {
-                    if (mob.Position.X < Constants.M)
-                    {
-                        mob.UpdatePosition("right");
-                    }
-                    if (FrameCount % 840 == 0)
-                    {
-                        ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
-                        Bullets.Add(MoveScriptMaker.CreateMoveScript("Arc", arc.SetFormation(bulletType, numBullets), false));
-                    }
-                }
-                else if (FrameCount > 920 && FrameCount <= 980)
-                {
-                    if (mob.Position.X > Constants.J)
-                    {
-                        mob.UpdatePosition("upLeft");
-                    }
-                    if (FrameCount % 960 == 0)
-                    {
-                        ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
-                        Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
-                    }
-                }
-                else if (FrameCount > 1040 && FrameCount <= 1100)
-                {
-                    if (mob.Position.X > Constants.G)
-                    {
-                        mob.UpdatePosition("left");
-                    }
-                    if (FrameCount % 1080 == 0)
-                    {
-                        ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
-                        Bullets.Add(MoveScriptMaker.CreateMoveScript("Arc", arc.SetFormation(bulletType, numBullets), false));
-                    }
-                }
-                else if (FrameCount > 1160 && FrameCount <= 1220)
-                {
-                    if (mob.Position.Y > Constants.B)
-                    {
-                        mob.UpdatePosition("up");
-                    }
-                    if (FrameCount % 1200 == 0)
-                    {
-                        ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
-                        Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
-                    }
-                }
-                else if (FrameCount > 1280 && FrameCount <= 1340)
-                {
-                    if (mob.Position.Y < Constants.E)
-                    {
-                        mob.UpdatePosition("downLeft");
-                    }
-                    if (FrameCount % 1320 == 0)
-                    {
-                        ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
-                        Bullets.Add(MoveScriptMaker.CreateMoveScript("Arc", arc.SetFormation(bulletType, numBullets), false));
-                    }
-                }
-                else if (FrameCount > 1440 && FrameCount <= 1460)
-                {
-                    if (mob.Position.X > Constants.H)
-                    {
-                        mob.UpdatePosition("upLeft");
-                    }
-                    if (FrameCount % 1440 == 0)
-                    {
-                        ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
-                        Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
-                    }
-                    else if (FrameCount > timeCap)
-                    {
-                        mob.UpdatePosition("up");
-                        if (mob.Position.Y <= 0)
-                        {
-                            mob.Active = false;
-                        }
-                    }
-                }
-
             }
+            else if (FrameCount > 800 && FrameCount <= 860)
+            {
+                if (mob.Position.X < Constants.M)
+                {
+                    mob.UpdatePosition("right");
+                }
+                if (FrameCount % 840 == 0)
+                {
+                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Bullets.Add(MoveScriptMaker.CreateMoveScript("Arc", arc.SetFormation(bulletType, numBullets), false));
+                }
+            }
+            else if (FrameCount > 920 && FrameCount <= 980)
+            {
+                if (mob.Position.X > Constants.J)
+                {
+                    mob.UpdatePosition("upLeft");
+                }
+                if (FrameCount % 960 == 0)
+                {
+                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
+                }
+            }
+            else if (FrameCount > 1040 && FrameCount <= 1100)
+            {
+                if (mob.Position.X > Constants.G)
+                {
+                    mob.UpdatePosition("left");
+                }
+                if (FrameCount % 1080 == 0)
+                {
+                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Bullets.Add(MoveScriptMaker.CreateMoveScript("Arc", arc.SetFormation(bulletType, numBullets), false));
+                }
+            }
+            else if (FrameCount > 1160 && FrameCount <= 1220)
+            {
+                if (mob.Position.Y > Constants.B)
+                {
+                    mob.UpdatePosition("up");
+                }
+                if (FrameCount % 1200 == 0)
+                {
+                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
+                }
+            }
+            else if (FrameCount > 1280 && FrameCount <= 1340)
+            {
+                if (mob.Position.Y < Constants.E)
+                {
+                    mob.UpdatePosition("downLeft");
+                }
+                if (FrameCount % 1320 == 0)
+                {
+                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Bullets.Add(MoveScriptMaker.CreateMoveScript("Arc", arc.SetFormation(bulletType, numBullets), false));
+                }
+            }
+            else if (FrameCount > 1440 && FrameCount <= 1460)
+            {
+                if (mob.Position.X > Constants.H)
+                {
+                    mob.UpdatePosition("upLeft");
+                }
+                if (FrameCount % 1440 == 0)
+                {
+                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
+                }
+            }
+            else if (FrameCount > timeCap)
+            {
+                mob.UpdatePosition("up");
+                if (mob.Position.Y <= 0)
+                {
+                    mob.Active = false;
+                }
+            }
+            
+            
             foreach (MoveScript formation in Bullets)
             {
                 formation.Update();

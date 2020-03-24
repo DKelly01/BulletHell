@@ -35,6 +35,7 @@ namespace Game1
         Menu menu;
         bool menuOpen = true;
         bool keySet = false;
+        bool gameOver = false;
 
         public Game1()
         {
@@ -54,12 +55,17 @@ namespace Game1
         /// </summary>
         protected override void Initialize()
         {
+            this.LevelStart("Level1");
+            base.Initialize();
+        }
+
+        void LevelStart(string level)
+        {
             Mobs.PlayerMaker playerMaker = new Mobs.PlayerMaker(keyBinds);
             Vector2 defaultStart = new Vector2(Constants.WIDTH / 2, (Constants.HEIGHT - 10) - Constants.PLAYER_RADIUS);
-            player = (PlayerCharacter)playerMaker.CreateMob("Player",defaultStart);
-            level = Builder.CreateLevel("Level1");
+            player = (PlayerCharacter)playerMaker.CreateMob("Player", defaultStart);
+            this.level = Builder.CreateLevel(level);
             menu = new Menu(keyBinds);
-            base.Initialize();
         }
 
         /// <summary>
@@ -124,9 +130,21 @@ namespace Game1
                     keySet = false;
                 }
             }
-            else
+            else 
             {
-                level.Update(player, kstate);
+                if (!gameOver)
+                {
+                    gameOver = level.Update(player, kstate);
+                }
+                else
+                {
+                    if (kstate.IsKeyDown(Keys.R))
+                    {
+                        this.LevelStart("Level1");
+                        this.gameOver = false;
+                        this.menuOpen = true;
+                    }
+                }
             }
             
             base.Update(gameTime);
@@ -160,6 +178,11 @@ namespace Game1
                     spriteBatch.DrawString(gameFont, Menu.menuString2, new Vector2(100, 150), Color.Fuchsia);
                     spriteBatch.DrawString(gameFont, Menu.menuString3, new Vector2(100, 200), Color.Fuchsia);
                 }
+            }
+            else if (gameOver)
+            {
+                spriteBatch.DrawString(gameFont, "Game Over!", new Vector2(300, 100), Color.Red);
+                spriteBatch.DrawString(gameFont, "Press ESC to quit R to reload", new Vector2(200, 150), Color.Red);
             }
             else
             {

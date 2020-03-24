@@ -70,7 +70,7 @@ namespace Game1.Level
         /// </summary>
         /// <param name="player"></param>
         /// <param name="kstate"></param>
-        public void Update(PlayerCharacter player, KeyboardState kstate)
+        public bool Update(PlayerCharacter player, KeyboardState kstate)
         {
             FrameCount++;
             foreach(Phase phase in Phases)
@@ -94,6 +94,11 @@ namespace Game1.Level
             }
             this.DetectCollision(player);
             player.Update(this, kstate);
+            if (player.Lives > 0)
+            {
+                return false;
+            }
+            else return true;
         }
 
         

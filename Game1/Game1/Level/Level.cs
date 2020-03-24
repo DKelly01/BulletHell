@@ -33,7 +33,7 @@ namespace Game1.Level
             return mobs;
         }     
 
-        List<MobileEntity> GetPhaseMobs()
+        public List<MobileEntity> GetPhaseMobs()
         {
             List<MobileEntity> mobs = new List<MobileEntity>();
             foreach (Phase phase in Phases)
@@ -53,7 +53,16 @@ namespace Game1.Level
             {
                 collisionDetector = new CollisionDetector(this.playerBullets, mob);   
             }
-            
+            if (player.Color == Color.Red)
+            {
+                foreach(MobileEntity mob in mobs)
+                {
+                    if (mob.MobType != "Boss" && mob.MobType != "MidBoss")
+                    {
+                        mob.Active = false;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -61,7 +70,7 @@ namespace Game1.Level
         /// </summary>
         /// <param name="player"></param>
         /// <param name="kstate"></param>
-        public void Update(PlayerCharacter player, KeyboardState kstate)
+        public bool Update(PlayerCharacter player, KeyboardState kstate)
         {
             FrameCount++;
             foreach(Phase phase in Phases)
@@ -85,6 +94,11 @@ namespace Game1.Level
             }
             this.DetectCollision(player);
             player.Update(this, kstate);
+            if (player.Lives > 0)
+            {
+                return false;
+            }
+            else return true;
         }
 
         

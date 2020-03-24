@@ -13,13 +13,14 @@ namespace Game1.Level
     class PlayerCharacter : MobileEntity
     {
         public float PrecisionSpeed { get; set; }
-        int Lives { get; set; }
+        public int Lives { get; set; }
         int invincibleStartFrame;
         int fireFrame;
         int currentFrame;
         bool invincible;
         KeyBinds KeyBinds;
         BulletMaker bulletMaker;
+        Vector2 defaultStartPosition;
 
         public PlayerCharacter(MobBase mobBase, Vector2 startingPosition, KeyBinds keybinds) : base(mobBase, startingPosition)
         {
@@ -31,6 +32,7 @@ namespace Game1.Level
             invincibleStartFrame = 0;
             KeyBinds = keybinds;
             bulletMaker = new BulletMaker();
+            defaultStartPosition = startingPosition;
         }
 
         public void Update(Level level, KeyboardState kstate)
@@ -40,6 +42,10 @@ namespace Game1.Level
             {
                 invincible = false;
                 this.Color = Color.White;
+            }
+            if (currentFrame == invincibleStartFrame)
+            {
+                List<MobileEntity> allMobs = level.GetPhaseMobs();
             }
             readKeyBoardInput(kstate, level);     
         }
@@ -53,6 +59,7 @@ namespace Game1.Level
                     this.invincible = true;
                     this.Color = Color.Red;
                     this.invincibleStartFrame = this.currentFrame;
+                    this.Position = defaultStartPosition;
                 }
                 else
                 {

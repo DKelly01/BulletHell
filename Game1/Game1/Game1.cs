@@ -29,9 +29,13 @@ namespace Game1
 
 
         SpriteFont gameFont;
-        MobileEntity player;
+        PlayerCharacter player;
         Level.Level level;
         KeyBinds keyBinds = new KeyBinds();
+        Menu menu;
+        bool menuOpen = true;
+        bool keySet = false;
+        bool gameOver = false;
 
         public Game1()
         {
@@ -51,11 +55,17 @@ namespace Game1
         /// </summary>
         protected override void Initialize()
         {
+            this.LevelStart("Level1");
+            base.Initialize();
+        }
+
+        void LevelStart(string level)
+        {
             Mobs.PlayerMaker playerMaker = new Mobs.PlayerMaker(keyBinds);
             Vector2 defaultStart = new Vector2(Constants.WIDTH / 2, (Constants.HEIGHT - 10) - Constants.PLAYER_RADIUS);
-            player = playerMaker.CreateMob("Player",defaultStart);
-            level = Builder.CreateLevel("Level1");
-            base.Initialize();
+            player = (PlayerCharacter)playerMaker.CreateMob("Player", defaultStart);
+            this.level = Builder.CreateLevel(level);
+            menu = new Menu(keyBinds);
         }
 
         /// <summary>
@@ -101,7 +111,42 @@ namespace Game1
                 Exit();
             //Add your update logic here
             KeyboardState kstate = Keyboard.GetState();
-            level.Update((PlayerCharacter)player, kstate);
+            if (kstate.IsKeyDown(Keys.M))
+            {
+                menuOpen = true;
+            }
+            if (menuOpen)
+            {
+                if (kstate.IsKeyDown(Keys.Space))
+                {
+                    menuOpen = false;
+                }
+                else if (kstate.IsKeyDown(Keys.K))
+                {
+                    keySet = true;
+                }
+                else if (kstate.IsKeyDown(Keys.M))
+                {
+                    keySet = false;
+                }
+            }
+            else 
+            {
+                if (!gameOver)
+                {
+                    gameOver = level.Update(player, kstate);
+                }
+                else
+                {
+                    if (kstate.IsKeyDown(Keys.R))
+                    {
+                        this.LevelStart("Level1");
+                        this.gameOver = false;
+                        this.menuOpen = true;
+                    }
+                }
+            }
+            
             base.Update(gameTime);
         }
 
@@ -117,46 +162,71 @@ namespace Game1
             
             spriteBatch.Draw(backgroundSprite, new Vector2(0,0), Color.White);
             //spriteBatch.Draw(backgroundGrid, new Vector2(0, 0), Color.White);
-            spriteBatch.Draw(playerSprite, new Vector2(player.Position.X - Constants.PLAYER_RADIUS, player.Position.Y - Constants.PLAYER_RADIUS), player.Color);
-            var kstate = Keyboard.GetState();
-            if (kstate.IsKeyDown(keyBinds.Slow))
+            if (menuOpen)
             {
-                spriteBatch.Draw(hitboxSprite, new Vector2(player.Position.X - 6, player.Position.Y - 2), Color.Chartreuse);
-            }
-
-            spriteBatch.DrawString(gameFont, (level.FrameCount/60).ToString(), new Vector2(780, 70), Color.Chartreuse);
-            foreach (MobileEntity mob in level.GetMobs())
-            {
-                if (mob.Active)
+                if (keySet)
                 {
-                    if (mob.MobType == "BulletTypeA")
+                    spriteBatch.DrawString(gameFont, Menu.keySetPrompt1, new Vector2(100, 100), Color.Aqua);
+                    spriteBatch.DrawString(gameFont, $"Up:{menu.Up}  Down:{menu.Down}  Right:{menu.Right}  Left:{menu.Left}", new Vector2(100, 150), Color.Aquamarine);
+                    spriteBatch.DrawString(gameFont, $"UpLeft:{menu.UpLeft}  DownLeft:{menu.DownLeft}  UpRight:{menu.UpRight}  DownRight:{menu.DownRight}", new Vector2(100, 200), Color.Aquamarine);
+                    spriteBatch.DrawString(gameFont, $"Slow:{menu.Slow}  Fire:{menu.Fire}", new Vector2(100, 250), Color.Aquamarine);
+                    spriteBatch.DrawString(gameFont, "Press SPACE to return to game M to return to menu", new Vector2(100, 300), Color.Aqua);
+                }
+                else
+                {
+                    spriteBatch.DrawString(gameFont, Menu.menuString1, new Vector2(100, 100), Color.Fuchsia);
+                    spriteBatch.DrawString(gameFont, Menu.menuString2, new Vector2(100, 150), Color.Fuchsia);
+                    spriteBatch.DrawString(gameFont, Menu.menuString3, new Vector2(100, 200), Color.Fuchsia);
+                }
+            }
+            else if (gameOver)
+            {
+                spriteBatch.DrawString(gameFont, "Game Over!", new Vector2(300, 100), Color.Red);
+                spriteBatch.DrawString(gameFont, "Press ESC to quit R to reload", new Vector2(200, 150), Color.Red);
+            }
+            else
+            {
+                spriteBatch.Draw(playerSprite, new Vector2(player.Position.X - Constants.PLAYER_RADIUS, player.Position.Y - Constants.PLAYER_RADIUS), player.Color);
+                var kstate = Keyboard.GetState();
+                if (kstate.IsKeyDown(keyBinds.Slow))
+                {
+                    spriteBatch.Draw(hitboxSprite, new Vector2(player.Position.X - 6, player.Position.Y - 2), Color.Chartreuse);
+                }
+
+                //spriteBatch.DrawString(gameFont, (level.FrameCount/60).ToString(), new Vector2(780, 70), Color.Chartreuse);
+                spriteBatch.DrawString(gameFont, $"Player Lives: {player.Lives}", new Vector2(725, 70), Color.Chartreuse);
+                foreach (MobileEntity mob in level.GetMobs())
+                {
+                    if (mob.Active)
                     {
-                        spriteBatch.Draw(bulletTypeASprite, mob.Position, mob.Color);
-                    }
-                    if (mob.MobType == "BulletTypeB")
-                    {
-                        spriteBatch.Draw(bulletTypeBSprite, mob.Position, mob.Color);
-                    }
-                    if (mob.MobType == "TypeA")
-                    {
-                        spriteBatch.Draw(typeASprite, mob.Position, mob.Color);
-                    }
-                    if (mob.MobType == "TypeB")
-                    {
-                        spriteBatch.Draw(typeBSprite, mob.Position, mob.Color);
-                    }
-                    if (mob.MobType == "MidBoss")
-                    {
-                        spriteBatch.Draw(midBossSprite, mob.Position, Color.Orange);
-                    }
-                    if (mob.MobType == "Boss")
-                    {
-                        spriteBatch.Draw(bossSprite, mob.Position, Color.HotPink);
+                        if (mob.MobType == "BulletTypeA")
+                        {
+                            spriteBatch.Draw(bulletTypeASprite, mob.Position, mob.Color);
+                        }
+                        if (mob.MobType == "BulletTypeB")
+                        {
+                            spriteBatch.Draw(bulletTypeBSprite, mob.Position, mob.Color);
+                        }
+                        if (mob.MobType == "TypeA")
+                        {
+                            spriteBatch.Draw(typeASprite, mob.Position, mob.Color);
+                        }
+                        if (mob.MobType == "TypeB")
+                        {
+                            spriteBatch.Draw(typeBSprite, mob.Position, mob.Color);
+                        }
+                        if (mob.MobType == "MidBoss")
+                        {
+                            spriteBatch.Draw(midBossSprite, mob.Position, Color.Orange);
+                        }
+                        if (mob.MobType == "Boss")
+                        {
+                            spriteBatch.Draw(bossSprite, mob.Position, Color.HotPink);
+                        }
                     }
                 }
             }
             spriteBatch.End();
-
             base.Draw(gameTime);
         }
     }

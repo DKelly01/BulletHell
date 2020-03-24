@@ -47,6 +47,7 @@
     <Compile Include="Level\Builder.cs" />
     <Compile Include="Level\Bases.cs" />
     <Compile Include="Level\WaveBase.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="MoveScripts\Boss1.cs" />
     <Compile Include="Mobs\Bullet.cs" />
     <Compile Include="Mobs\BulletMaker.cs" />
@@ -74,7 +75,7 @@
     <Compile Include="MoveScripts\MidBoss.cs" />
     <Compile Include="MoveScripts\MoveScript.cs" />
     <Compile Include="Level\Phase.cs" />
-    <Compile Include="Level\PlayerCharacter.cs" />
+    <Compile Include="Mobs\PlayerCharacter.cs" />
     <Compile Include="MoveScripts\MoveScriptMaker.cs" />
     <Compile Include="MoveScripts\SinLeft.cs" />
     <Compile Include="MoveScripts\SinRight.cs" />

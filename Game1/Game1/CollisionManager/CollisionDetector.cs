@@ -13,7 +13,10 @@ namespace Game1.CollisionManager
         {
             CollisionInvoker invoker = new CollisionInvoker();
             foreach (MobileEntity damagingEntity in damagingEntities) {
-                invoker.detectCollision( new DetectCollision(damagingEntity, damagedEntity));
+                if (damagingEntity.Active)
+                {
+                    invoker.detectCollision(new DetectCollision(damagingEntity, damagedEntity));
+                }
             } 
         }
     }

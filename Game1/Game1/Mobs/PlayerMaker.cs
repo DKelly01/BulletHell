@@ -9,15 +9,13 @@ namespace Game1.Mobs
 {
     public class PlayerMaker : MobMaker
     {
-        KeyBinds KeyBinds;
-        public PlayerMaker(KeyBinds keybinds)
+        public PlayerMaker()
         {
-            this.KeyBinds = keybinds;
         }
 
         public override MobileEntity CreateMob(string mobType, Vector2 startingPosition)
         {
-            return new Level.PlayerCharacter(MobFromFile("Player"), startingPosition ,KeyBinds);
+            return new Level.PlayerCharacter(MobFromFile("Player"), startingPosition);
         }
     }
 }

@@ -18,11 +18,10 @@ namespace Game1.Level
         int fireFrame;
         int currentFrame;
         bool invincible;
-        KeyBinds KeyBinds;
         BulletMaker bulletMaker;
         Vector2 defaultStartPosition;
 
-        public PlayerCharacter(MobBase mobBase, Vector2 startingPosition, KeyBinds keybinds) : base(mobBase, startingPosition)
+        public PlayerCharacter(MobBase mobBase, Vector2 startingPosition) : base(mobBase, startingPosition)
         {
             PrecisionSpeed = mobBase.MoveSpeed/2;
             Active = true;
@@ -30,7 +29,6 @@ namespace Game1.Level
             Lives = 5;
             invincible = false;
             invincibleStartFrame = 0;
-            KeyBinds = keybinds;
             bulletMaker = new BulletMaker();
             defaultStartPosition = startingPosition;
         }
@@ -74,32 +72,32 @@ namespace Game1.Level
 
         void readKeyBoardInput(KeyboardState kstate, Level level)
         {
-            if (kstate.IsKeyDown(KeyBinds.Slow))
+            if (kstate.IsKeyDown(KeyBinds.Instance().Slow))
             {
                 this.MoveSpeed = PrecisionSpeed;
             }
             else {
                 this.MoveSpeed = this.mobBase.MoveSpeed;
             }
-            if (kstate.IsKeyDown(KeyBinds.Fire)){
+            if (kstate.IsKeyDown(KeyBinds.Instance().Fire)){
                 Fire(level);
             }
-            if (kstate.IsKeyDown(KeyBinds.Up) && Position.Y > Constants.BORDER + Constants.PLAYER_RADIUS)
+            if (kstate.IsKeyDown(KeyBinds.Instance().Up) && Position.Y > Constants.BORDER + Constants.PLAYER_RADIUS)
             {
                 UpdatePosition("up");
             }
-            else if (kstate.IsKeyDown(KeyBinds.Down) && Position.Y < Constants.HEIGHT - Constants.BORDER - Constants.PLAYER_RADIUS)
+            else if (kstate.IsKeyDown(KeyBinds.Instance().Down) && Position.Y < Constants.HEIGHT - Constants.BORDER - Constants.PLAYER_RADIUS)
             {
                 UpdatePosition("down");
             }
-            else if (kstate.IsKeyDown(KeyBinds.Left) && Position.X > Constants.BORDER + Constants.PLAYER_RADIUS) {
+            else if (kstate.IsKeyDown(KeyBinds.Instance().Left) && Position.X > Constants.BORDER + Constants.PLAYER_RADIUS) {
                 UpdatePosition("left");
             }
-            else if (kstate.IsKeyDown(KeyBinds.Right) && Position.X < Constants.PLAYABLE_WIDTH - Constants.PLAYER_RADIUS)
+            else if (kstate.IsKeyDown(KeyBinds.Instance().Right) && Position.X < Constants.PLAYABLE_WIDTH - Constants.PLAYER_RADIUS)
             {
                 UpdatePosition("right");
             }
-            else if (kstate.IsKeyDown(KeyBinds.UpLeft)) {
+            else if (kstate.IsKeyDown(KeyBinds.Instance().UpLeft)) {
                 if (Position.X > Constants.BORDER + Constants.PLAYER_RADIUS)
                 {
                     UpdatePosition("left");
@@ -109,7 +107,7 @@ namespace Game1.Level
                     UpdatePosition("up");
                 }
             }
-            else if (kstate.IsKeyDown(KeyBinds.UpRight))
+            else if (kstate.IsKeyDown(KeyBinds.Instance().UpRight))
             {
                 if (Position.X < Constants.PLAYABLE_WIDTH - Constants.PLAYER_RADIUS)
                 {
@@ -120,7 +118,7 @@ namespace Game1.Level
                     UpdatePosition("up");
                 }
             }
-            else if (kstate.IsKeyDown(KeyBinds.DownRight))
+            else if (kstate.IsKeyDown(KeyBinds.Instance().DownRight))
             {
                 if (Position.X < Constants.PLAYABLE_WIDTH - Constants.PLAYER_RADIUS)
                 {
@@ -131,7 +129,7 @@ namespace Game1.Level
                     UpdatePosition("down");
                 }
             }
-            else if (kstate.IsKeyDown(KeyBinds.DownLeft))
+            else if (kstate.IsKeyDown(KeyBinds.Instance().DownLeft))
             {
                 if (Position.X > Constants.BORDER + Constants.PLAYER_RADIUS)
                 {

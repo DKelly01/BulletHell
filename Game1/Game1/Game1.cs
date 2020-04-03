@@ -31,11 +31,12 @@ namespace Game1
         SpriteFont gameFont;
         PlayerCharacter player;
         Level.Level level;
-        KeyBinds keyBinds = new KeyBinds();
         Menu menu;
         bool menuOpen = true;
         bool keySet = false;
         bool gameOver = false;
+        string keybindSelect = string.Empty;
+        bool reboundKey = false;
 
         public Game1()
         {
@@ -61,11 +62,11 @@ namespace Game1
 
         void LevelStart(string level)
         {
-            Mobs.PlayerMaker playerMaker = new Mobs.PlayerMaker(keyBinds);
+            Mobs.PlayerMaker playerMaker = new Mobs.PlayerMaker();
             Vector2 defaultStart = new Vector2(Constants.WIDTH / 2, (Constants.HEIGHT - 10) - Constants.PLAYER_RADIUS);
             player = (PlayerCharacter)playerMaker.CreateMob("Player", defaultStart);
             this.level = Builder.CreateLevel(level);
-            menu = new Menu(keyBinds);
+            menu = new Menu();
         }
 
         /// <summary>
@@ -111,13 +112,14 @@ namespace Game1
                 Exit();
             //Add your update logic here
             KeyboardState kstate = Keyboard.GetState();
+             
             if (kstate.IsKeyDown(Keys.M))
             {
                 menuOpen = true;
             }
             if (menuOpen)
             {
-                if (kstate.IsKeyDown(Keys.Space))
+                if (kstate.IsKeyDown(Keys.Enter))
                 {
                     menuOpen = false;
                 }
@@ -129,7 +131,16 @@ namespace Game1
                 {
                     keySet = false;
                 }
+                else if (keybindSelect != string.Empty)
+                {
+                    reboundKey = menu.SetKeyBind(keybindSelect);
+                }
+                if (keySet && !reboundKey)
+                {
+                    keybindSelect = menu.SelectKeyBinds();
+                }
             }
+            
             else 
             {
                 if (!gameOver)
@@ -167,10 +178,13 @@ namespace Game1
                 if (keySet)
                 {
                     spriteBatch.DrawString(gameFont, Menu.keySetPrompt1, new Vector2(100, 100), Color.Aqua);
-                    spriteBatch.DrawString(gameFont, $"Up:{menu.Up}  Down:{menu.Down}  Right:{menu.Right}  Left:{menu.Left}", new Vector2(100, 150), Color.Aquamarine);
-                    spriteBatch.DrawString(gameFont, $"UpLeft:{menu.UpLeft}  DownLeft:{menu.DownLeft}  UpRight:{menu.UpRight}  DownRight:{menu.DownRight}", new Vector2(100, 200), Color.Aquamarine);
-                    spriteBatch.DrawString(gameFont, $"Slow:{menu.Slow}  Fire:{menu.Fire}", new Vector2(100, 250), Color.Aquamarine);
-                    spriteBatch.DrawString(gameFont, "Press SPACE to return to game M to return to menu", new Vector2(100, 300), Color.Aqua);
+                    spriteBatch.DrawString(gameFont, $"Up:{KeyBinds.Instance().Up.ToString()}  Down:{KeyBinds.Instance().Down.ToString()}  Right:{KeyBinds.Instance().Right.ToString()}  Left:{KeyBinds.Instance().Left}", new Vector2(100, 150), Color.Aquamarine);
+                    spriteBatch.DrawString(gameFont, $"UpLeft:{KeyBinds.Instance().UpLeft.ToString()}  DownLeft:{KeyBinds.Instance().DownLeft.ToString()}  UpRight:{KeyBinds.Instance().UpRight.ToString()}  DownRight:{KeyBinds.Instance().DownRight}", new Vector2(100, 200), Color.Aquamarine);
+                    spriteBatch.DrawString(gameFont, $"Slow:{KeyBinds.Instance().Slow.ToString()}  Fire:{KeyBinds.Instance().Fire.ToString()}", new Vector2(100, 250), Color.Aquamarine);
+                    spriteBatch.DrawString(gameFont, "Press ENTER to return to game M to return to menu", new Vector2(100, 300), Color.Aqua);
+                    spriteBatch.DrawString(gameFont, menu.KeySetPrompt2, new Vector2(100, 350), Color.Aqua);
+                    spriteBatch.DrawString(gameFont, menu.KeySetPrompt3, new Vector2(100, 400), Color.Aqua);
+
                 }
                 else
                 {
@@ -188,7 +202,7 @@ namespace Game1
             {
                 spriteBatch.Draw(playerSprite, new Vector2(player.Position.X - Constants.PLAYER_RADIUS, player.Position.Y - Constants.PLAYER_RADIUS), player.Color);
                 var kstate = Keyboard.GetState();
-                if (kstate.IsKeyDown(keyBinds.Slow))
+                if (kstate.IsKeyDown(KeyBinds.Instance().Slow))
                 {
                     spriteBatch.Draw(hitboxSprite, new Vector2(player.Position.X - 6, player.Position.Y - 2), Color.Chartreuse);
                 }

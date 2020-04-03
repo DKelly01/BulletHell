@@ -7,9 +7,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Game1
 {
-    public class KeyBinds
+    public sealed class KeyBinds
     {
-        public KeyBinds()
+        private static readonly KeyBinds INSTANCE = new KeyBinds();
+
+        private KeyBinds()
         {
             Up = Keys.W;
             Down = Keys.S;
@@ -21,6 +23,10 @@ namespace Game1
             DownRight = Keys.C;
             Slow = Keys.Space;
             Fire = Keys.Up;
+        }
+        public static KeyBinds Instance()
+        {  
+            return INSTANCE;             
         }
 
         public Keys Up { get; set; }

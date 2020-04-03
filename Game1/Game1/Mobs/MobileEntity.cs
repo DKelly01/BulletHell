@@ -86,5 +86,10 @@ namespace Game1
             }
         }
 
+        public virtual int DealDamage()
+        {
+            return this.Damage;
+        }
+
     }
 }

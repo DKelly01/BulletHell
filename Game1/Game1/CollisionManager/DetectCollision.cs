@@ -23,7 +23,7 @@ namespace Game1.CollisionManager
             float distance = Vector2.Distance(DamagedEntity.Position, DamagingEntity.Position);
             if (distance <= DamagedEntity.HitRadius + DamagingEntity.HitRadius)
             {
-                DamagedEntity.TakeDamage(DamagingEntity.Damage);
+                DamagedEntity.TakeDamage(DamagingEntity.DealDamage());
             }
             
         }

@@ -18,5 +18,11 @@ namespace Game1.Mobs
         {
             base.TakeDamage(0);
         }
+
+        public override int DealDamage()
+        {
+            this.Active = false;
+            return base.DealDamage();
+        }
     }
 }

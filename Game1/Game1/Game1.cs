@@ -35,6 +35,8 @@ namespace Game1
         bool menuOpen = true;
         bool keySet = false;
         bool gameOver = false;
+        string keybindSelect = string.Empty;
+        bool reboundKey = false;
 
         public Game1()
         {
@@ -110,13 +112,14 @@ namespace Game1
                 Exit();
             //Add your update logic here
             KeyboardState kstate = Keyboard.GetState();
+             
             if (kstate.IsKeyDown(Keys.M))
             {
                 menuOpen = true;
             }
             if (menuOpen)
             {
-                if (kstate.IsKeyDown(Keys.Space))
+                if (kstate.IsKeyDown(Keys.Enter))
                 {
                     menuOpen = false;
                 }
@@ -128,11 +131,16 @@ namespace Game1
                 {
                     keySet = false;
                 }
+                else if (keybindSelect != string.Empty)
+                {
+                    reboundKey = menu.SetKeyBind(keybindSelect);
+                }
+                if (keySet && !reboundKey)
+                {
+                    keybindSelect = menu.SelectKeyBinds();
+                }
             }
-            if (keySet)
-            {
-                menu.SetKeyBinds();
-            }
+            
             else 
             {
                 if (!gameOver)
@@ -173,8 +181,9 @@ namespace Game1
                     spriteBatch.DrawString(gameFont, $"Up:{KeyBinds.Instance().Up.ToString()}  Down:{KeyBinds.Instance().Down.ToString()}  Right:{KeyBinds.Instance().Right.ToString()}  Left:{KeyBinds.Instance().Left}", new Vector2(100, 150), Color.Aquamarine);
                     spriteBatch.DrawString(gameFont, $"UpLeft:{KeyBinds.Instance().UpLeft.ToString()}  DownLeft:{KeyBinds.Instance().DownLeft.ToString()}  UpRight:{KeyBinds.Instance().UpRight.ToString()}  DownRight:{KeyBinds.Instance().DownRight}", new Vector2(100, 200), Color.Aquamarine);
                     spriteBatch.DrawString(gameFont, $"Slow:{KeyBinds.Instance().Slow.ToString()}  Fire:{KeyBinds.Instance().Fire.ToString()}", new Vector2(100, 250), Color.Aquamarine);
-                    spriteBatch.DrawString(gameFont, "Press SPACE to return to game M to return to menu", new Vector2(100, 300), Color.Aqua);
+                    spriteBatch.DrawString(gameFont, "Press ENTER to return to game M to return to menu", new Vector2(100, 300), Color.Aqua);
                     spriteBatch.DrawString(gameFont, menu.KeySetPrompt2, new Vector2(100, 350), Color.Aqua);
+                    spriteBatch.DrawString(gameFont, menu.KeySetPrompt3, new Vector2(100, 400), Color.Aqua);
 
                 }
                 else

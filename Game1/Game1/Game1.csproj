@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -72,6 +73,7 @@
     <Compile Include="MoveScripts\Formations\Formation.cs" />
     <Compile Include="MoveScripts\Formations\Solo.cs" />
     <Compile Include="MoveScripts\Formations\ZigZagFormation.cs" />
+    <Compile Include="MoveScripts\KeyboardMovement.cs" />
     <Compile Include="MoveScripts\MidBoss.cs" />
     <Compile Include="MoveScripts\MoveScript.cs" />
     <Compile Include="Level\Phase.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="MoveScripts\MoveScriptMaker.cs" />
     <Compile Include="MoveScripts\SinLeft.cs" />
     <Compile Include="MoveScripts\SinRight.cs" />
+    <Compile Include="MoveScripts\SlowFall.cs" />
     <Compile Include="MoveScripts\SoloBRight.cs" />
     <Compile Include="MoveScripts\ZagLeft.cs" />
     <Compile Include="MoveScripts\ZigRight.cs" />

@@ -23,13 +23,20 @@ namespace Game1.MoveScripts
 
             if (FrameCount == 0)
             {
-                mob.Position = new Vector2(Constants.P, -70);
+                mob.Position = new Vector2(-30, Constants.A);
                 mob.Active = true;
+                mob.Color = Color.HotPink;
             }
 
             //start sin wave from top left
             if (FrameCount <= 11 * Constants.FPS)
             {
+                if (!Constants.invincible)
+                {
+                    Constants.playerColor = Color.Yellow;
+                    Constants.invertX = false;
+                    Constants.invertY = true;
+                }
                 if (FrameCount % 1 == 0)
                 {
                     mob.UpdatePosition("right");
@@ -44,6 +51,12 @@ namespace Game1.MoveScripts
             //sin wave back right
             else if (FrameCount <= 22 * Constants.FPS)
             {
+                if (!Constants.invincible)
+                {
+                    Constants.playerColor = Color.Blue;
+                    Constants.invertX = true;
+                    Constants.invertY = false;
+                }
                 if (FrameCount % 1 == 0)
                 {
                     mob.UpdatePosition("left");
@@ -58,6 +71,12 @@ namespace Game1.MoveScripts
             //diagnal from top left
             else if (FrameCount <= 33 * Constants.FPS)
             {
+                if (!Constants.invincible)
+                {
+                    Constants.playerColor = Color.Lime;
+                    Constants.invertX = true;
+                    Constants.invertY = true;
+                }
                 //mobs enter from top left corner of screen, move to center 
                 if (mob.Position.X <= 327)
                 {
@@ -73,6 +92,12 @@ namespace Game1.MoveScripts
             //diagnal from top right
             else if (FrameCount <= 43 * Constants.FPS)
             {
+                if (!Constants.invincible)
+                {
+                    Constants.playerColor = Color.Lime;
+                    Constants.invertX = true;
+                    Constants.invertY = true;
+                }
                 //mobs enter from top right corner of screen, move to center 
                 if (mob.Position.X >= 327)
                 {
@@ -88,6 +113,12 @@ namespace Game1.MoveScripts
             //sin wave from left to offscreen right
             else if (FrameCount > 43 * Constants.FPS)
             {
+                if (!Constants.invincible)
+                {
+                    Constants.playerColor = Color.White;
+                    Constants.invertX = false;
+                    Constants.invertY = false;
+                }
                 if (FrameCount % 1 == 0)
                 {
                     mob.UpdatePosition("right");
@@ -104,6 +135,12 @@ namespace Game1.MoveScripts
             {
                 Formation formation = new ZigZagFormation(new BulletMaker(), mob.Position);
                 Bullets.Add(MoveScriptMaker.CreateMoveScript("ZigZag", formation.SetFormation(bulletType), false));
+            }
+
+            if (FrameCount == 2 * Constants.FPS || FrameCount == 6 * Constants.FPS || FrameCount == 12 * Constants.FPS || FrameCount == 16 * Constants.FPS || FrameCount == 25 * Constants.FPS || FrameCount == 35 * Constants.FPS)
+            {
+                Formation formation = new Solo(new MobMaker(), mob.Position);
+                Bullets.Add(MoveScriptMaker.CreateMoveScript("SlowFall", formation.SetFormation("BulletSpawner"), false));
             }
 
             //changed the dead area outside the window so it wouldn't kill mobs when they spawn just off screen

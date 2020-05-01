@@ -17,7 +17,6 @@ namespace Game1.Level
         int invincibleStartFrame;
         int fireFrame;
         int currentFrame;
-        bool invincible;
         BulletMaker bulletMaker;
         Vector2 defaultStartPosition;
 
@@ -27,37 +26,46 @@ namespace Game1.Level
             Active = true;
             Position = startingPosition;
             Lives = 5;
-            invincible = false;
+            Constants.invincible = false;
             invincibleStartFrame = 0;
             bulletMaker = new BulletMaker();
             defaultStartPosition = startingPosition;
+            Constants.playerColor = Color.White;
+            Constants.playerPoints = mobBase.PointValue;
+            Constants.invertX = false;
+            Constants.invertY = false;
         }
 
         public void Update(Level level, KeyboardState kstate)
         {
             this.currentFrame = level.FrameCount;
+            this.Color = Constants.playerColor;
             if (Active && currentFrame >= invincibleStartFrame + (Constants.FPS*Constants.INVINCIBLE_TIME))
             {
-                invincible = false;
-                this.Color = Color.White;
+                Constants.invincible = false;
+                Constants.playerColor = Color.White;
             }
             if (currentFrame == invincibleStartFrame)
             {
-                List<MobileEntity> allMobs = level.GetPhaseMobs();
+                Constants.playerColor = Color.Red;
+                Constants.invertX = false;
+                Constants.invertY = false;
             }
             readKeyBoardInput(kstate, level);     
         }
         public override void TakeDamage(int damage)
         {
-            if (!this.invincible)
+            if (!Constants.invincible)
             {
                 this.Lives -= 1;
                 if (this.Lives > 0)
                 {
-                    this.invincible = true;
-                    this.Color = Color.Red;
+                    Constants.invincible = true;
                     this.invincibleStartFrame = this.currentFrame;
                     this.Position = defaultStartPosition;
+                    Constants.playerColor = Color.Red;
+                    Constants.invertX = false;
+                    Constants.invertY = false;
                 }
                 else
                 {
@@ -82,63 +90,126 @@ namespace Game1.Level
             if (kstate.IsKeyDown(KeyBinds.Instance().Fire)){
                 Fire(level);
             }
-            if (kstate.IsKeyDown(KeyBinds.Instance().Up) && Position.Y > Constants.BORDER + Constants.PLAYER_RADIUS)
+            if (kstate.IsKeyDown(KeyBinds.Instance().Up))
             {
-                UpdatePosition("up");
-            }
-            else if (kstate.IsKeyDown(KeyBinds.Instance().Down) && Position.Y < Constants.HEIGHT - Constants.BORDER - Constants.PLAYER_RADIUS)
-            {
-                UpdatePosition("down");
-            }
-            else if (kstate.IsKeyDown(KeyBinds.Instance().Left) && Position.X > Constants.BORDER + Constants.PLAYER_RADIUS) {
-                UpdatePosition("left");
-            }
-            else if (kstate.IsKeyDown(KeyBinds.Instance().Right) && Position.X < Constants.PLAYABLE_WIDTH - Constants.PLAYER_RADIUS)
-            {
-                UpdatePosition("right");
-            }
-            else if (kstate.IsKeyDown(KeyBinds.Instance().UpLeft)) {
-                if (Position.X > Constants.BORDER + Constants.PLAYER_RADIUS)
+                if (Constants.invertY && Position.Y < Constants.HEIGHT - Constants.BORDER - Constants.PLAYER_RADIUS)
                 {
-                    UpdatePosition("left");
+                    UpdatePosition("down");
                 }
-                if (Position.Y > Constants.BORDER + Constants.PLAYER_RADIUS)
+                else if (!Constants.invertY && Position.Y > Constants.BORDER + Constants.PLAYER_RADIUS)
                 {
                     UpdatePosition("up");
                 }
             }
-            else if (kstate.IsKeyDown(KeyBinds.Instance().UpRight))
+            else if (kstate.IsKeyDown(KeyBinds.Instance().Down))
             {
-                if (Position.X < Constants.PLAYABLE_WIDTH - Constants.PLAYER_RADIUS)
+                if (Constants.invertY && Position.Y > Constants.BORDER + Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("up");
+                }
+                else if(!Constants.invertY && Position.Y < Constants.HEIGHT - Constants.BORDER - Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("down");
+                }
+            }
+            else if (kstate.IsKeyDown(KeyBinds.Instance().Left))
+            {
+                if (Constants.invertX && Position.X < Constants.PLAYABLE_WIDTH - Constants.PLAYER_RADIUS)
                 {
                     UpdatePosition("right");
                 }
-                if (Position.Y > Constants.BORDER + Constants.PLAYER_RADIUS)
+                else if (!Constants.invertX && Position.X > Constants.BORDER + Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("left");
+                }
+            }
+            else if (kstate.IsKeyDown(KeyBinds.Instance().Right))
+            {
+                if (Constants.invertX && Position.X > Constants.BORDER + Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("left");
+                }
+                else if (!Constants.invertX && Position.X < Constants.PLAYABLE_WIDTH - Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("right");
+                }
+            }
+            else if (kstate.IsKeyDown(KeyBinds.Instance().UpLeft)) {
+                if (Constants.invertX && Position.X < Constants.PLAYABLE_WIDTH - Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("right");
+                }
+                else if (!Constants.invertX && Position.X > Constants.BORDER + Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("left");
+                }
+                if (Constants.invertY && Position.Y < Constants.HEIGHT - Constants.BORDER - Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("down");
+                }
+                else if (!Constants.invertY && Position.Y > Constants.BORDER + Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("up");
+                }
+            
+            }
+            else if (kstate.IsKeyDown(KeyBinds.Instance().UpRight))
+            {
+                if (Constants.invertX && Position.X > Constants.BORDER + Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("left");
+                }
+                else if (!Constants.invertX && Position.X < Constants.PLAYABLE_WIDTH - Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("right");
+                }
+                if (Constants.invertY && Position.Y < Constants.HEIGHT - Constants.BORDER - Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("down");
+                }
+                else if (!Constants.invertY && Position.Y > Constants.BORDER + Constants.PLAYER_RADIUS)
                 {
                     UpdatePosition("up");
                 }
             }
             else if (kstate.IsKeyDown(KeyBinds.Instance().DownRight))
             {
-                if (Position.X < Constants.PLAYABLE_WIDTH - Constants.PLAYER_RADIUS)
+                if (Constants.invertX && Position.X > Constants.BORDER + Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("left");
+                }
+                else if (!Constants.invertX && Position.X < Constants.PLAYABLE_WIDTH - Constants.PLAYER_RADIUS)
                 {
                     UpdatePosition("right");
                 }
-                if (Position.Y < 500)
+                if (Constants.invertY && Position.Y > Constants.BORDER + Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("up");
+                }
+                else if (!Constants.invertY && Position.Y < Constants.HEIGHT - Constants.BORDER - Constants.PLAYER_RADIUS)
                 {
                     UpdatePosition("down");
                 }
             }
             else if (kstate.IsKeyDown(KeyBinds.Instance().DownLeft))
             {
-                if (Position.X > Constants.BORDER + Constants.PLAYER_RADIUS)
+                if (Constants.invertX && Position.X < Constants.PLAYABLE_WIDTH - Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("right");
+                }
+                else if (!Constants.invertX && Position.X > Constants.BORDER + Constants.PLAYER_RADIUS)
                 {
                     UpdatePosition("left");
                 }
-                if (Position.Y < 500)
+                if (Constants.invertY && Position.Y > Constants.BORDER + Constants.PLAYER_RADIUS)
+                {
+                    UpdatePosition("up");
+                }
+                else if (!Constants.invertY && Position.Y < Constants.HEIGHT - Constants.BORDER - Constants.PLAYER_RADIUS)
                 {
                     UpdatePosition("down");
                 }
+            
             }
         }
 

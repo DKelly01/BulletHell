@@ -26,6 +26,7 @@ namespace Game1
         Texture2D hitboxSprite;
         Texture2D bulletTypeASprite;
         Texture2D bulletTypeBSprite;
+        Texture2D bulletSpawnerSprite;
 
 
         SpriteFont gameFont;
@@ -90,6 +91,7 @@ namespace Game1
             hitboxSprite = Content.Load<Texture2D>("hitbox");
             bulletTypeASprite = Content.Load<Texture2D>("bullet1_sprite");
             bulletTypeBSprite = Content.Load<Texture2D>("bullet2_sprite");
+            bulletSpawnerSprite = Content.Load<Texture2D>("bullet_player_sprite");
         }
 
         /// <summary>
@@ -167,6 +169,7 @@ namespace Game1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            Random rand = new Random();
             GraphicsDevice.Clear(Color.Black);
             //Add your drawing code here
             spriteBatch.Begin();
@@ -197,6 +200,7 @@ namespace Game1
             {
                 spriteBatch.DrawString(gameFont, "Game Over!", new Vector2(300, 100), Color.Red);
                 spriteBatch.DrawString(gameFont, "Press ESC to quit R to reload", new Vector2(200, 150), Color.Red);
+                spriteBatch.DrawString(gameFont, $"Player Score: {Constants.playerPoints}", new Vector2(280, 200), Color.Red);
             }
             else
             {
@@ -208,7 +212,8 @@ namespace Game1
                 }
 
                 //spriteBatch.DrawString(gameFont, (level.FrameCount/60).ToString(), new Vector2(780, 70), Color.Chartreuse);
-                spriteBatch.DrawString(gameFont, $"Player Lives: {player.Lives}", new Vector2(725, 70), Color.Chartreuse);
+                spriteBatch.DrawString(gameFont, $"Player Lives: {player.Lives}", new Vector2(680, 70), Color.Chartreuse);
+                spriteBatch.DrawString(gameFont, $"Player Score: {Constants.playerPoints}", new Vector2(680, 100), Color.Chartreuse);
                 foreach (MobileEntity mob in level.GetMobs())
                 {
                     if (mob.Active)
@@ -231,11 +236,15 @@ namespace Game1
                         }
                         if (mob.MobType == "MidBoss")
                         {
-                            spriteBatch.Draw(midBossSprite, mob.Position, Color.Orange);
+                            spriteBatch.Draw(midBossSprite, mob.Position, mob.Color);
                         }
                         if (mob.MobType == "Boss")
                         {
-                            spriteBatch.Draw(bossSprite, mob.Position, Color.HotPink);
+                            spriteBatch.Draw(bossSprite, mob.Position, mob.Color);
+                        }
+                        if (mob.MobType == "BulletSpawner")
+                        {
+                            spriteBatch.Draw(bulletSpawnerSprite, mob.Position, new Color(rand.Next(256), rand.Next(256), rand.Next(256)));
                         }
                     }
                 }

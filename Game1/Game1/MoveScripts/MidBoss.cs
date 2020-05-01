@@ -27,6 +27,7 @@ namespace Game1.MoveScripts
             {
                 mob.Position = new Vector2(Constants.K, -30);
                 mob.Active = true;
+                mob.Color = Color.Orange;
             }
 
             if (mob.Position.Y < Constants.E && FrameCount <= 100)
@@ -41,7 +42,7 @@ namespace Game1.MoveScripts
                 }
                 if (FrameCount % 250 == 0)
                 {
-                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Formation arc = new ArcFormation(new BulletMaker(), mob.Position);
                     Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
                 }
             }
@@ -53,7 +54,7 @@ namespace Game1.MoveScripts
                 }
                 if (FrameCount % 370 == 0)
                 {
-                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Formation arc = new ArcFormation(new BulletMaker(), mob.Position);
                     Bullets.Add(MoveScriptMaker.CreateMoveScript("Arc", arc.SetFormation(bulletType, numBullets), false));
                 }
             }
@@ -65,7 +66,7 @@ namespace Game1.MoveScripts
                 }
                 if (FrameCount % 480 == 0)
                 {
-                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Formation arc = new ArcFormation(new BulletMaker(), mob.Position);
                     Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
                 }
             }
@@ -78,7 +79,7 @@ namespace Game1.MoveScripts
                 }
                 if (FrameCount % 600 == 0)
                 {
-                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Formation arc = new ArcFormation(new BulletMaker(), mob.Position);
                     Bullets.Add(MoveScriptMaker.CreateMoveScript("Arc", arc.SetFormation(bulletType, numBullets), false));
                 }
             }
@@ -90,7 +91,7 @@ namespace Game1.MoveScripts
                 }
                 if (FrameCount % 720 == 0)
                 {
-                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Formation arc = new ArcFormation(new BulletMaker(), mob.Position);
                     Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
                 }
             }
@@ -102,7 +103,7 @@ namespace Game1.MoveScripts
                 }
                 if (FrameCount % 840 == 0)
                 {
-                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Formation arc = new ArcFormation(new BulletMaker(), mob.Position);
                     Bullets.Add(MoveScriptMaker.CreateMoveScript("Arc", arc.SetFormation(bulletType, numBullets), false));
                 }
             }
@@ -114,7 +115,7 @@ namespace Game1.MoveScripts
                 }
                 if (FrameCount % 960 == 0)
                 {
-                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Formation arc = new ArcFormation(new BulletMaker(), mob.Position);
                     Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
                 }
             }
@@ -126,7 +127,7 @@ namespace Game1.MoveScripts
                 }
                 if (FrameCount % 1080 == 0)
                 {
-                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Formation arc = new ArcFormation(new BulletMaker(), mob.Position);
                     Bullets.Add(MoveScriptMaker.CreateMoveScript("Arc", arc.SetFormation(bulletType, numBullets), false));
                 }
             }
@@ -138,7 +139,7 @@ namespace Game1.MoveScripts
                 }
                 if (FrameCount % 1200 == 0)
                 {
-                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Formation arc = new ArcFormation(new BulletMaker(), mob.Position);
                     Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
                 }
             }
@@ -150,7 +151,7 @@ namespace Game1.MoveScripts
                 }
                 if (FrameCount % 1320 == 0)
                 {
-                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Formation arc = new ArcFormation(new BulletMaker(), mob.Position);
                     Bullets.Add(MoveScriptMaker.CreateMoveScript("Arc", arc.SetFormation(bulletType, numBullets), false));
                 }
             }
@@ -162,7 +163,7 @@ namespace Game1.MoveScripts
                 }
                 if (FrameCount % 1440 == 0)
                 {
-                    ArcFormation arc = new ArcFormation(new BulletMaker(), mob.Position);
+                    Formation arc = new ArcFormation(new BulletMaker(), mob.Position);
                     Bullets.Add(MoveScriptMaker.CreateMoveScript(default, arc.SetFormation(bulletType, numBullets), false));
                 }
             }

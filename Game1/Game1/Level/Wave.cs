@@ -38,6 +38,19 @@ namespace Game1.Level
                 foreach (MobileEntity bullet in bulletSet)
                 {
                     bullets.Add(bullet);
+                    
+                }
+                List<MoveScript> nestedFormations = formation.Bullets;
+                foreach (MoveScript nested in nestedFormations)
+                {
+                    List<MobileEntity> nestedBullets = nested.Mobs;
+
+                    foreach (MobileEntity bullet in nestedBullets)
+                    {
+                        bullets.Add(bullet);
+
+                    }
+
                 }
             }
             return bullets;

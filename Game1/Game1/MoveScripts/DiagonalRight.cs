@@ -37,7 +37,7 @@ namespace Game1.MoveScripts
                 {
                     if (Mobs.IndexOf(mob) % mobFiringInterval == 0)
                     {
-                        Solo formation = new Solo(new BulletMaker(), mob.Position);
+                        Formation formation = new Solo(new BulletMaker(), mob.Position);
                         Bullets.Add(MoveScriptMaker.CreateMoveScript(default, formation.SetFormation(bulletType), false));
                     }
 

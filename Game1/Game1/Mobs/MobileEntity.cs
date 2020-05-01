@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Game1.Mobs;
+using Game1;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -19,6 +20,7 @@ namespace Game1
         public Color Color { get; set; }
         public int HP { get => this.mobBase.HP; }
         public int Damage { get=>this.mobBase.Damage; }
+        public int pointValue { get; set; }
         internal MobBase mobBase;
 
         public MobileEntity(MobBase mobBase, Vector2 startingPosition)
@@ -28,6 +30,7 @@ namespace Game1
             Position = startingPosition;
             Active = true;
             Color = Color.White;
+            pointValue = mobBase.PointValue;
         }
 
         /// <summary>
@@ -83,6 +86,7 @@ namespace Game1
             if (this.HP <= 0)
             {
                 this.Active = false;
+                Constants.playerPoints += pointValue;
             }
         }
 

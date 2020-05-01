@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace Game1
 {
@@ -60,5 +61,12 @@ namespace Game1
         public static readonly int T = 600;
         public static readonly int U = 630;
         public static readonly int V = 660;
+
+        public static bool invertX { get; set; }
+        public static bool invertY { get; set; }
+
+        public static Color playerColor { get; set; }
+        public static bool invincible { get; set; }
+        public static int playerPoints { get; set; }
     }
 }

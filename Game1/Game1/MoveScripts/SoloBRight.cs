@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game1.MoveScripts.Formations;
 
 namespace Game1.MoveScripts
 {
@@ -40,6 +41,11 @@ namespace Game1.MoveScripts
                 {
                     mob.Active = false;
                 }
+            }
+            if (mob.Position.X % 100 == 0)
+            {
+                Formation formation = new Solo(new MobMaker(), mob.Position);
+                Bullets.Add(MoveScriptMaker.CreateMoveScript("Keyboard", formation.SetFormation("BulletSpawner"), false));
             }
             foreach (MoveScript formation in Bullets)
             {

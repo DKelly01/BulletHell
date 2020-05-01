@@ -14,6 +14,7 @@ namespace Game1.Level
         List<Phase> Phases;
         public List<MobileEntity> playerBullets { get; internal set; }
         public int FrameCount { get; internal set; }
+
         public Level(string level)
         {
             FrameCount = 0;
@@ -58,7 +59,7 @@ namespace Game1.Level
                 foreach(MobileEntity mob in mobs)
                 {
                     if (mob.MobType != "Boss" && mob.MobType != "MidBoss")
-                    {
+                    { 
                         mob.Active = false;
                     }
                 }

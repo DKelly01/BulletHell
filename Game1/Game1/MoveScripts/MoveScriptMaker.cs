@@ -42,7 +42,10 @@ namespace Game1.MoveScripts
                     return new ZagLeft(mobs, willFire);
                 case "ZigRight":
                     return new ZigRight(mobs, willFire);
-
+                case "SlowFall":
+                    return new SlowFall(mobs, willFire);
+                case "Keyboard":
+                    return new KeyboardMovement(mobs, willFire);
                 default:
                     return new MoveScript(mobs, willFire);
             }

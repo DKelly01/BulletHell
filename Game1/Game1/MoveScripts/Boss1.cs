@@ -25,6 +25,7 @@ namespace Game1.MoveScripts
             {
                 mob.Position = new Vector2(Constants.P, -70);
                 mob.Active = true;
+                mob.Color = Color.HotPink;
             }
 
             //ZigZag down for 4 seconds
@@ -87,21 +88,45 @@ namespace Game1.MoveScripts
                 // mobs teleport down when on C,G,K,O, or S
                 if ((FrameCount / Constants.FPS) >= 23 && (FrameCount / Constants.FPS) <= 23.5)
                 {
+                    if (!Constants.invincible)
+                    {
+                        Constants.playerColor = Color.Yellow;
+                        Constants.invertX = false;
+                        Constants.invertY = true;
+                    }
                     mob.UpdatePosition("down");
                     mob.UpdatePosition("down");
                 }
                 else if ((FrameCount / Constants.FPS) >= 25 && (FrameCount / Constants.FPS) <= 25.5)
                 {
+                    if (!Constants.invincible)
+                    {
+                        Constants.playerColor = Color.Yellow;
+                        Constants.invertX = false;
+                        Constants.invertY = true;
+                    }
                     mob.UpdatePosition("down");
                     mob.UpdatePosition("down");
                 }
                 else if ((FrameCount / Constants.FPS) >= 27 && (FrameCount / Constants.FPS) <= 27.5)
                 {
+                    if (!Constants.invincible)
+                    {
+                        Constants.playerColor = Color.Yellow;
+                        Constants.invertX = false;
+                        Constants.invertY = true;
+                    }
                     mob.UpdatePosition("down");
                     mob.UpdatePosition("down");
                 }
                 else if ((FrameCount / Constants.FPS) >= 29 && (FrameCount / Constants.FPS) <= 29.5)
                 {
+                    if (!Constants.invincible)
+                    {
+                        Constants.playerColor = Color.Yellow;
+                        Constants.invertX = false;
+                        Constants.invertY = true;
+                    }
                     mob.UpdatePosition("down");
                     mob.UpdatePosition("down");
                 }
@@ -109,6 +134,12 @@ namespace Game1.MoveScripts
                 //the mobs move upRight otherwise
                 else
                 {
+                    if (!Constants.invincible)
+                    {
+                        Constants.playerColor = Color.White;
+                        Constants.invertX = false;
+                        Constants.invertY = false;
+                    }
                     mob.UpdatePosition("upRight");
                     mob.UpdatePosition("upRight");
                 }
@@ -119,21 +150,45 @@ namespace Game1.MoveScripts
                 // mobs teleport down when on C,G,K,O, or S
                 if ((FrameCount / Constants.FPS) >= 31 && (FrameCount / Constants.FPS) <= 31.5)
                 {
+                    if (!Constants.invincible)
+                    {
+                        Constants.playerColor = Color.Aqua;
+                        Constants.invertX = true;
+                        Constants.invertY = false;
+                    }
                     mob.UpdatePosition("down");
                     mob.UpdatePosition("down");
                 }
                 else if ((FrameCount / Constants.FPS) >= 33 && (FrameCount / Constants.FPS) <= 33.5)
                 {
+                    if (!Constants.invincible)
+                    {
+                        Constants.playerColor = Color.Aqua;
+                        Constants.invertX = true;
+                        Constants.invertY = false;
+                    }
                     mob.UpdatePosition("down");
                     mob.UpdatePosition("down");
                 }
                 else if ((FrameCount / Constants.FPS) >= 35 && (FrameCount / Constants.FPS) <= 35.5)
                 {
+                    if (!Constants.invincible)
+                    {
+                        Constants.playerColor = Color.Aqua;
+                        Constants.invertX = true;
+                        Constants.invertY = false;
+                    }
                     mob.UpdatePosition("down");
                     mob.UpdatePosition("down");
                 }
                 else if ((FrameCount / Constants.FPS) >= 37 && (FrameCount / Constants.FPS) <= 37.5)
                 {
+                    if (!Constants.invincible)
+                    {
+                        Constants.playerColor = Color.Aqua;
+                        Constants.invertX = true;
+                        Constants.invertY = false;
+                    }
                     mob.UpdatePosition("down");
                     mob.UpdatePosition("down");
                 }
@@ -141,6 +196,12 @@ namespace Game1.MoveScripts
                 //the mobs move upRight otherwise
                 else
                 {
+                    if (!Constants.invincible)
+                    {
+                        Constants.playerColor = Color.White;
+                        Constants.invertX = false;
+                        Constants.invertY = false;
+                    }
                     mob.UpdatePosition("upLeft");
                     mob.UpdatePosition("upLeft");
                 }
@@ -149,6 +210,12 @@ namespace Game1.MoveScripts
             //small arc arcoss screen to exit
             else if (FrameCount > 38 * Constants.FPS )
             {
+                if (!Constants.invincible)
+                {
+                    Constants.playerColor = Color.Lime;
+                    Constants.invertX = true;
+                    Constants.invertY = true;
+                }
                 if (FrameCount % 1 == 0)
                 {
                     mob.UpdatePosition("right");
@@ -170,6 +237,12 @@ namespace Game1.MoveScripts
             //changed the dead area outside the window so it wouldn't kill mobs when they spawn just off screen
             if (mob.Position.X < -60 || mob.Position.X > 670)
             {
+                if (!Constants.invincible)
+                {
+                    Constants.playerColor = Color.White;
+                    Constants.invertX = false;
+                    Constants.invertY = false;
+                }
                 mob.Color = Color.TransparentBlack;
                 //this.Active = false;
             }
